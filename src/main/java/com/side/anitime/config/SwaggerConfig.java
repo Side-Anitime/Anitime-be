@@ -17,7 +17,9 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.OAS_30)
                 .useDefaultResponseMessages(false)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.side.anitime"))
+                //.apis(RequestHandlerSelectors.basePackage("com.side.anitime"))
+                /* 전체 범위 */
+                .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
                 .build()
                 .apiInfo(apiInfo());
