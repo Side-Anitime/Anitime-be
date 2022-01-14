@@ -5,3 +5,7 @@ spring:
     username: kym
     password: kym123
 
+# springfox-swagger(?? 3.0.0)? spring-boot(2.6.2) ???? ??
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
