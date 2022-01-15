@@ -1,4 +1,4 @@
-package com.side.anitime.model;
+package com.side.anitime.domain;
 
 import lombok.*;
 
