@@ -1,6 +1,6 @@
 package com.side.anitime.domain.user;
 
-import com.side.anitime.codeconst.RoleType;
+import com.side.anitime.codeconst.UserType;
 import com.side.anitime.codeconst.YesNo;
 import com.side.anitime.domain.common.BaseEntity;
 import lombok.AllArgsConstructor;
@@ -30,9 +30,9 @@ public class User extends BaseEntity {
     @Column(length = 20)
     private String nickname;
 
-    @Column(columnDefinition = "ENUM('ADMIN', 'USER', 'NONE') DEFAULT 'USER'")
+    @Column(columnDefinition = "ENUM('NORMAL', 'NAVER', 'KAKAO', 'NON') DEFAULT 'NORMAL'")
     @Enumerated(EnumType.STRING)
-    private RoleType roleType;
+    private UserType userType;
 
     @Column(columnDefinition = "ENUM('Y', 'N') DEFAULT 'Y'")
     @Enumerated(EnumType.STRING)
@@ -41,6 +41,5 @@ public class User extends BaseEntity {
     @Column(length = 50)
     private String picture;
 
-    //TODO: erd상 Role과 RoleType이 존재하는데 무슨 차이인지?
     //TODO: 발급 된 토큰을 저장할 필요가 있을까? 검증만 하면 되는 과정이기 때문에 추가 저장할 필요가 없어보인다. (stateless)
 }
