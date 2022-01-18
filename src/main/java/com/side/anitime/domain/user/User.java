@@ -41,5 +41,8 @@ public class User extends BaseEntity {
     @Column(length = 50)
     private String picture;
 
-    //TODO: 발급 된 토큰을 저장할 필요가 있을까? 검증만 하면 되는 과정이기 때문에 추가 저장할 필요가 없어보인다. (stateless)
+    @Column(length = 50)
+    private String accessToken;
+
+    //TODO: oauth 토큰 저장 후 네이버에서 들어왔는지 카카오에서 들어왔는지.. 소셜 정보에 대한 특정 id를 담을 column이 필요한가?
 }
