@@ -1,5 +1,6 @@
 package com.side.anitime.domain.alarm;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.side.anitime.codeconst.YesNo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,17 +21,21 @@ import java.time.LocalDate;
 public class Alarm {
 
     @Id
+    @Column(name = "ALARM_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long alarmId;
 
-    @Column(length = 50)
+    @Column(name = "TITLE", length = 50)
     private String title;
 
-    @Column(columnDefinition = "ENUM('Y', 'N') DEFAULT 'N'")
+    @Column(name = "ALARM_YN", columnDefinition = "ENUM('Y', 'N') DEFAULT 'N'")
     @Enumerated(EnumType.STRING)
     private YesNo alarmYn;
 
-    private Long planId; //TODO: plan과 primary key 설정, ManyToOne
+    @Column(name = "PLAN_ID")
+    private Long planId;
 
+    @Column(name = "TIME")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate time;
 }

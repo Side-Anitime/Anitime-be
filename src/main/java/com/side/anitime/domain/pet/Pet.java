@@ -23,38 +23,41 @@ import java.time.LocalDate;
 public class Pet {
 
     @Id
+    @Column(name = "PET_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long petId;
 
-    private Long userId; //TODO; user와 foreign key 설정, ManyToOne
+    @Column(name = "USER_ID")
+    private Long userId;
 
-    @Column(columnDefinition = "ENUM('DOG', 'CAT') DEFAULT 'DOG'")
+    @Column(name = "TYPE", columnDefinition = "ENUM('DOG', 'CAT') DEFAULT 'DOG'")
     private AnimalType type;
 
-    @Column(length = 20)
+    @Column(name = "KIND", length = 20)
     private String kind;
 
-    @Column(length = 20)
+    @Column(name = "NAME", length = 20)
     private String name;
 
-    @Column
+    @Column(name = "BIRTHDAY")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate birthday;
 
-    @Column(length = 100)
+    @Column(name = "PERSONALITY", length = 100)
     private String personality;
 
-    @Column(length = 50)
+    @Column(name = "IMAGE", length = 50)
     private String image;
 
-    @Column(columnDefinition = "ENUM('FEMALE', 'MALE') DEFAULT 'MALE'")
+    @Column(name = "GENDER", columnDefinition = "ENUM('FEMALE', 'MALE') DEFAULT 'MALE'")
+    @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    @Column(columnDefinition = "ENUM('Y', 'N') DEFAULT 'N'")
+    @Column(name = "NEUTER_YN", columnDefinition = "ENUM('Y', 'N') DEFAULT 'N'")
     @Enumerated(EnumType.STRING)
     private YesNo neuterYn;
 
-    @Column(columnDefinition = "ENUM('Y', 'N') DEFAULT 'N'")
+    @Column(name = "REPRESENT_YN", columnDefinition = "ENUM('Y', 'N') DEFAULT 'N'")
     @Enumerated(EnumType.STRING)
     private YesNo representYn;
 }

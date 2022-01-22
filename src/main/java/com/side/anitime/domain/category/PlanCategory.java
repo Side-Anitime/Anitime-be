@@ -1,6 +1,7 @@
 package com.side.anitime.domain.category;
 
 import com.side.anitime.codeconst.PlanType;
+import com.side.anitime.domain.plan.Plan;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,14 +20,16 @@ import javax.persistence.*;
 public class PlanCategory {
 
     @Id
+    @Column(name = "PLAN_CATEGORY_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long planCategoryId;
 
-    @Column(columnDefinition = "ENUM('HOSPITAL', 'WALK', 'BIRTHDAY', 'MOIM', 'ETC') DEFAULT 'ETC'")
-    private PlanType planType;
+    @Column(name = "TYPE", columnDefinition = "ENUM('HOSPITAL', 'WALK', 'BIRTHDAY', 'MOIM', 'ETC') DEFAULT 'ETC'")
+    private PlanType type;
 
-    @Column(length = 10)
+    @Column(name = "NAME", length = 10)
     private String name;
 
-    private Long planId; //TODO: plan과 foreign key 설정, OneToOne
+    @Column(name = "PLAN_ID")
+    private Long planId;
 }

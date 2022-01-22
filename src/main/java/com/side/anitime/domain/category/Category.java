@@ -19,13 +19,14 @@ import javax.persistence.*;
 public class Category {
 
     @Id
+    @Column(name = "CATEGORY_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long categoryId;
 
-    @Column(columnDefinition = "ENUM('DOG', 'CAT') DEFAULT 'DOG'")
+    @Column(name = "TYPE", columnDefinition = "ENUM('DOG', 'CAT') DEFAULT 'DOG'")
     @Enumerated(EnumType.STRING)
-    private AnimalType animalType;
+    private AnimalType type;
 
-    @Column(length = 20)
+    @Column(name = "NAME", length = 20)
     private String name;
 }

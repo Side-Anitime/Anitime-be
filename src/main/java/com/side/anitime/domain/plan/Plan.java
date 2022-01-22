@@ -1,5 +1,7 @@
 package com.side.anitime.domain.plan;
 
+import com.side.anitime.domain.alarm.Alarm;
+import com.side.anitime.domain.category.PlanCategory;
 import com.side.anitime.domain.common.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,6 +10,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -19,14 +23,25 @@ import javax.persistence.*;
 public class Plan extends BaseEntity {
 
     @Id
+    @Column(name = "PLAN_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long planId;
 
-    @Column(length = 50)
+    @Column(name = "TITLE", length = 50)
     private String title;
 
-    @Column(length = 200)
+    @Column(name = "CONTENTS", length = 200)
     private String contents;
 
-    private Long userId; //TODO: user와 foreign key 설정, ManyToOne
+    @Column(name = "USER_ID")
+    private Long userId;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "PLAN_ID", referencedColumnName = "PLAN_ID")
+    private PlanCategory planCategory;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "alarm_id", referencedColumnName = "planId")
+    @Builder.Default
+    private List<Alarm> alarms = new ArrayList<>();
 }

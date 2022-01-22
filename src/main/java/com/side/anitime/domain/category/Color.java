@@ -19,10 +19,14 @@ import javax.persistence.*;
 public class Color {
 
     @Id
+    @Column(name = "COLOR_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long colorId;
 
-    @Column(columnDefinition = "")
+    @Column(name = "TYPE", columnDefinition = "")
     @Enumerated(EnumType.STRING)
-    private ColorType colorType;
+    private ColorType type;
+
+    @Column(name = "NAME", length = 10)
+    private String name;
 }
