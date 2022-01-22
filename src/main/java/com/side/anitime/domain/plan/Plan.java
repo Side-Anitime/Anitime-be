@@ -41,7 +41,7 @@ public class Plan extends BaseEntity {
     private PlanCategory planCategory;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "alarm_id", referencedColumnName = "planId")
+    @JoinColumn(name = "PLAN_ID", referencedColumnName = "PLAN_ID")
     @Builder.Default
     private List<Alarm> alarms = new ArrayList<>();
 }
