@@ -1,4 +1,6 @@
 package com.side.anitime.codeconst;
 
-public enum TEST_TYPE {
+public enum YesNo {
+    Y,
+    N
 }
