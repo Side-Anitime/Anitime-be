@@ -20,8 +20,8 @@ public class PetController {
     private final PetRepository petRepository;
 
     @GetMapping("{testId}")
-    public ResponseEntity<?> getTestList(@PathVariable Long testId) {
-        Pet pet = petRepository.findById(testId).orElseThrow(() -> new IllegalStateException("에휴 오류났어~~"));
+    public ResponseEntity<?> getPetList(@PathVariable Long petId) {
+        Pet pet = petRepository.findById(petId).orElseThrow(() -> new IllegalStateException("에휴 오류났어~~"));
 
         return ResponseEntity.ok(
                 ResponsePetDto.Detail.builder()
