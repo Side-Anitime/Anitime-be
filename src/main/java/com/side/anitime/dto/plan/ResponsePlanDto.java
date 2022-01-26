@@ -1,10 +1,13 @@
 package com.side.anitime.dto.plan;
 
+import com.side.anitime.domain.alarm.Alarm;
 import com.side.anitime.domain.category.PlanCategory;
 import com.side.anitime.dto.alarm.ResponseAlarmDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,6 +22,7 @@ public class ResponsePlanDto {
         private String title;
         private String contents;
         private PlanCategory planCategory;
+        private List<Alarm> alarms;
         // TODO 단건 조회할 때 일정에 등록된 하나의 알람정보는 어떻게 들고오지..?
     }
 }
