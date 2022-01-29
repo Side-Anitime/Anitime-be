@@ -1,9 +1,8 @@
 package com.side.anitime.controller.plan;
 
-import com.side.anitime.domain.category.PlanCategory;
 import com.side.anitime.domain.plan.Plan;
 import com.side.anitime.dto.plan.ResponsePlanDto;
-import com.side.anitime.repository.PlanRepository;
+import com.side.anitime.repository.plan.PlanRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

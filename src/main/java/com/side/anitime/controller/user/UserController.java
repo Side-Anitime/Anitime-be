@@ -1,11 +1,8 @@
 package com.side.anitime.controller.user;
 
-import com.side.anitime.codeconst.UserType;
-import com.side.anitime.dto.user.ResponseUserDto;
-import com.side.anitime.repository.UserRepository;
+import com.side.anitime.repository.user.UserRepository;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

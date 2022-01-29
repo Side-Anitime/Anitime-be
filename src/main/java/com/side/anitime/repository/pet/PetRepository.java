@@ -1,4 +1,4 @@
-package com.side.anitime.repository;
+package com.side.anitime.repository.pet;
 
 import com.side.anitime.domain.pet.Pet;
 import org.springframework.data.jpa.repository.JpaRepository;

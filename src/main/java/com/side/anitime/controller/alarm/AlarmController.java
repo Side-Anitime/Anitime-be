@@ -1,14 +1,11 @@
 package com.side.anitime.controller.alarm;
 
-import com.side.anitime.codeconst.YesNo;
 import com.side.anitime.domain.alarm.Alarm;
 import com.side.anitime.dto.alarm.ResponseAlarmDto;
-import com.side.anitime.repository.AlarmRepository;
+import com.side.anitime.repository.alarm.AlarmRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/alarm")

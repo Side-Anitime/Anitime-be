@@ -1,5 +1,6 @@
 package com.side.anitime.domain.plan;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.side.anitime.domain.alarm.Alarm;
 import com.side.anitime.domain.category.PlanCategory;
 import com.side.anitime.domain.common.BaseEntity;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +37,14 @@ public class Plan extends BaseEntity {
 
     @Column(name = "USER_ID")
     private Long userId;
+
+    @Column(name = "START_DATE")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDateTime startDate;
+
+    @Column(name = "END_DATE")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDateTime endDate;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "PLAN_ID", referencedColumnName = "PLAN_ID")

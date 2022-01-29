@@ -1,4 +1,4 @@
-package com.side.anitime.repository;
+package com.side.anitime.repository.plan;
 
 import com.side.anitime.domain.plan.Plan;
 import org.springframework.data.jpa.repository.JpaRepository;
