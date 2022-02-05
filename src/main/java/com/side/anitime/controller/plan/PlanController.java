@@ -19,7 +19,7 @@ public class PlanController {
 
     @GetMapping("{planId}")
     public ResponseEntity<?> getPlanList(@PathVariable Long planId){
-        Plan plan = planRepository.findById(planId).orElseThrow(() -> new IllegalStateException("Error~"));
+        Plan plan = planRepository.findById(planId).orElseThrow(() -> new IllegalStateException("test"));
 
         return ResponseEntity.ok(
                 ResponsePlanDto.Detail.builder()
