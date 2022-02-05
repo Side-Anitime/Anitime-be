@@ -30,6 +30,9 @@ public class User extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
+    @Column(name = "CATEGORY_ID")
+    private Long categoryId;
+
     @Column(name = "EMAIL", length = 50)
     private String email;
 

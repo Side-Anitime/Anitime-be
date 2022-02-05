@@ -26,10 +26,7 @@ public class PlanController {
                         .planId(plan.getPlanId())
                         .title(plan.getTitle())
                         .contents(plan.getContents())
-                        .planCategory(plan.getPlanCategory())
-                        .alarms(plan.getAlarms())
                         .build()
         );
     }
-
 }
