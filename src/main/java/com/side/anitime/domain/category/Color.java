@@ -29,4 +29,5 @@ public class Color {
 
     @Column(name = "NAME", length = 10)
     private String name;
+
 }
