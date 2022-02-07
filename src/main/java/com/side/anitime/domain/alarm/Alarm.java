@@ -2,6 +2,7 @@ package com.side.anitime.domain.alarm;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.side.anitime.codeconst.YesNo;
+import com.side.anitime.domain.plan.Plan;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -32,8 +33,12 @@ public class Alarm {
     @Enumerated(EnumType.STRING)
     private YesNo alarmYn;
 
-    @Column(name = "PLAN_ID")
-    private Long planId;
+//    @Column(name = "PLAN_ID")
+//    private Long planId;
+
+    @ManyToOne
+    @JoinColumn(name = "PLAN_ID")
+    private Plan plan;
 
     @Column(name = "TIME")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")

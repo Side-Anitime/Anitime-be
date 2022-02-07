@@ -1,6 +1,7 @@
 package com.side.anitime.domain.category;
 
 import com.side.anitime.codeconst.ColorType;
+import com.side.anitime.domain.plan.Plan;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,5 +30,9 @@ public class Color {
 
     @Column(name = "NAME", length = 10)
     private String name;
+
+    @OneToOne
+    @JoinColumn(name = "PLAN_ID")
+    private Plan plan;
 
 }

@@ -61,7 +61,7 @@ public class User extends BaseEntity {
     @Column(name = "ACCESS_TOKEN", length = 50)
     private String accessToken;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
     @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
     @Builder.Default
     private List<Plan> plans = new ArrayList<>();

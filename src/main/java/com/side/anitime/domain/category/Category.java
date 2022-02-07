@@ -26,9 +26,9 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long categoryId;
 
-    // 양방향 연관관계 설정해주기 위함
-    @OneToMany(mappedBy = "category")
-    private List<User> users = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "USER_ID")
+    private User user;
 
     @Column(name = "TYPE", columnDefinition = "ENUM('DOG', 'CAT') DEFAULT 'DOG'")
     @Enumerated(EnumType.STRING)

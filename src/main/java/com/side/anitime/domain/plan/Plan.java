@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.side.anitime.domain.alarm.Alarm;
 import com.side.anitime.domain.category.PlanCategory;
 import com.side.anitime.domain.common.BaseEntity;
+import com.side.anitime.domain.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -35,8 +36,11 @@ public class Plan extends BaseEntity {
     @Column(name = "CONTENTS", length = 200)
     private String contents;
 
-    @Column(name = "USER_ID")
-    private Long userId;
+//    @Column(name = "USER_ID")
+//    private Long userId;
+    @ManyToOne
+    @JoinColumn(name = "USER_ID")
+    private User user;
 
     @Column(name = "START_DATE")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
@@ -50,7 +54,7 @@ public class Plan extends BaseEntity {
     @JoinColumn(name = "PLAN_ID", referencedColumnName = "PLAN_ID")
     private PlanCategory planCategory;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "plan")
     @JoinColumn(name = "PLAN_ID", referencedColumnName = "PLAN_ID")
     @Builder.Default
     private List<Alarm> alarms = new ArrayList<>();
