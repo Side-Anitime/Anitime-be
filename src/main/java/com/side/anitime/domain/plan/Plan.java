@@ -36,8 +36,6 @@ public class Plan extends BaseEntity {
     @Column(name = "CONTENTS", length = 200)
     private String contents;
 
-//    @Column(name = "USER_ID")
-//    private Long userId;
     @ManyToOne
     @JoinColumn(name = "USER_ID")
     private User user;
@@ -56,6 +54,5 @@ public class Plan extends BaseEntity {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "plan")
     @JoinColumn(name = "PLAN_ID", referencedColumnName = "PLAN_ID")
-    @Builder.Default
     private List<Alarm> alarms = new ArrayList<>();
 }

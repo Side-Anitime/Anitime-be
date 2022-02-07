@@ -33,9 +33,6 @@ public class Alarm {
     @Enumerated(EnumType.STRING)
     private YesNo alarmYn;
 
-//    @Column(name = "PLAN_ID")
-//    private Long planId;
-
     @ManyToOne
     @JoinColumn(name = "PLAN_ID")
     private Plan plan;

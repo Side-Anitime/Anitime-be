@@ -30,9 +30,6 @@ public class PlanCategory {
     @Column(name = "NAME", length = 10)
     private String name;
 
-//    @Column(name = "PLAN_ID")
-//    private Long planId;
-
     @OneToOne
     @JoinColumn(name="PLAN_ID")
     private Plan plan;

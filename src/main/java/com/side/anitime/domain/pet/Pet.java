@@ -28,8 +28,6 @@ public class Pet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long petId;
 
-//    @Column(name = "USER_ID")
-//    private Long userId;
     @ManyToOne
     @JoinColumn(name = "USER_ID")
     private User user;
