@@ -31,9 +31,10 @@ public class User extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
-    @ManyToOne
-    @JoinColumn(name = "CATEGORY_ID")
-    private Category category;
+//    NOTE: User -> Category 1:N
+//    @ManyToOne
+//    @JoinColumn(name = "CATEGORY_ID")
+//    private Category category;
 
     @OneToMany(mappedBy = "user")
     private List<Pet> pets = new ArrayList<>();
@@ -58,7 +59,7 @@ public class User extends BaseEntity {
     @Column(name = "ACCESS_TOKEN", length = 50)
     private String accessToken;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
     private List<Plan> plans = new ArrayList<>();
 

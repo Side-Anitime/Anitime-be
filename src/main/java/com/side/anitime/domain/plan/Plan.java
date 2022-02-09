@@ -52,7 +52,7 @@ public class Plan extends BaseEntity {
     @JoinColumn(name = "PLAN_ID", referencedColumnName = "PLAN_ID")
     private PlanCategory planCategory;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "plan")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "PLAN_ID", referencedColumnName = "PLAN_ID")
     private List<Alarm> alarms = new ArrayList<>();
 }
