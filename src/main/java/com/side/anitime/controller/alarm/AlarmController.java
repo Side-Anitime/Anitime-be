@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.*;
 @Api(value = "알람 API", tags = "알람 API")
 public class AlarmController {
 
+    //TODO: API 설계 확인하여 swagger 껍데기 만들기
+
     private final AlarmRepository alarmRepository;
 
     @ApiOperation(value = "알람 목록 조회")

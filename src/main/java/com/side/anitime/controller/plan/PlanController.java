@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class PlanController {
 
+    //TODO: API 설계 확인하여 swagger 껍데기 만들기
+
     private final PlanRepository planRepository;
 
     @GetMapping("{planId}")

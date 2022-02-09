@@ -11,10 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class UserController {
 
+    //TODO: API 설계 확인하여 swagger 껍데기 만들기
+
     private final UserRepository userRepository;
-//    @PostMapping(/login/{userType})
-//    public ResponseEntity<?> oauthLoginUser(@PathVariable UserType userType){
-//
-//        return ResponseEntity.ok();
-//    }
 }
