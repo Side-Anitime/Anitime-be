@@ -1,6 +1,6 @@
 package com.side.anitime.codeconst;
 
-public enum KindType {
+public enum OsType {
     ANDROID,
     IOS
 }

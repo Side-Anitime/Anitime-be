@@ -1,6 +1,6 @@
 package com.side.anitime.domain.setting;
 
-import com.side.anitime.codeconst.KindType;
+import com.side.anitime.codeconst.OsType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,15 +14,17 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Builder
 @Table(name="SETTING")
-public class setting {
+public class Setting {
+
     @Id
+    @Column(name="SETTING_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="setting_id")
-    private Long id;
+    private Long settingId;
 
-    @Column(name="kind")
-    private KindType kindType;
+    @Column(name="OS_TYPE")
+    @Enumerated(EnumType.STRING)
+    private OsType osType;
 
-    @Column(name="version")
+    @Column(name="VERSION")
     private String version;
 }
