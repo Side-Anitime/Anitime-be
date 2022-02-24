@@ -20,3 +20,10 @@ spring:
         format_sql: true
     database: mysql
 
+  # Social kakao
+custom:
+  oauth2:
+    kakao:
+      client-id: cb7a84398dab0d6fb9ecdc4e302810f0
+      client-secret: 9xR1fuGYcKjRE6gjlSuDANnWj8qGskGd
+
