@@ -63,5 +63,8 @@ public class User extends BaseEntity {
     @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
     private List<Plan> plans = new ArrayList<>();
 
+    @Column(length = 100)
+    private String provider;
+
     //TODO: oauth 토큰 저장 후 네이버에서 들어왔는지 카카오에서 들어왔는지 소셜 정보에 대한 특정 id 또는 index를 담을 column이 필요한가?
 }

@@ -21,9 +21,18 @@ spring:
     database: mysql
 
   # Social kakao
-custom:
-  oauth2:
-    kakao:
-      client-id: cb7a84398dab0d6fb9ecdc4e302810f0
-      client-secret: 9xR1fuGYcKjRE6gjlSuDANnWj8qGskGd
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            authorization-grant-type: authorization_code
+            client-id: cb7a84398dab0d6fb9ecdc4e302810f0
+            client-secret: 9xR1fuGYcKjRE6gjlSuDANnWj8qGskGd
+            redirect-uri
+            scope:
+              - profile
+              - acount_email
+            client-authentication-method: POST
+            client-name: Kakao
 
