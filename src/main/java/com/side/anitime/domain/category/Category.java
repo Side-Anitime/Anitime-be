@@ -1,7 +1,7 @@
 package com.side.anitime.domain.category;
 
 import com.side.anitime.codeconst.AnimalType;
-import com.side.anitime.domain.user.User;
+import com.side.anitime.domain.Member.Member;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,8 +9,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -28,7 +26,7 @@ public class Category {
 
     @ManyToOne
     @JoinColumn(name = "USER_ID")
-    private User user;
+    private Member user;
 
     @Column(name = "TYPE", columnDefinition = "ENUM('DOG', 'CAT') DEFAULT 'DOG'")
     @Enumerated(EnumType.STRING)

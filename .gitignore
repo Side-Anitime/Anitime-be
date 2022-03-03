@@ -39,3 +39,4 @@ application*.pid
 .vscode/
 
 ### Setting ###
+application-oauth.properties

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.side.anitime.codeconst.AnimalType;
 import com.side.anitime.codeconst.Gender;
 import com.side.anitime.codeconst.YesNo;
-import com.side.anitime.domain.user.User;
+import com.side.anitime.domain.Member.Member;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,7 +30,7 @@ public class Pet {
 
     @ManyToOne
     @JoinColumn(name = "USER_ID")
-    private User user;
+    private Member user;
 
     @Column(name = "TYPE", columnDefinition = "ENUM('DOG', 'CAT') DEFAULT 'DOG'")
     private AnimalType type;

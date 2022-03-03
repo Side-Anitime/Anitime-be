@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.side.anitime.domain.alarm.Alarm;
 import com.side.anitime.domain.category.PlanCategory;
 import com.side.anitime.domain.common.BaseEntity;
-import com.side.anitime.domain.user.User;
+import com.side.anitime.domain.Member.Member;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -38,7 +38,7 @@ public class Plan extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "USER_ID")
-    private User user;
+    private Member user;
 
     @Column(name = "START_DATE")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")

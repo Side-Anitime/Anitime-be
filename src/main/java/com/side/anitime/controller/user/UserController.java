@@ -1,6 +1,6 @@
 package com.side.anitime.controller.user;
 
-import com.side.anitime.repository.user.UserRepository;
+import com.side.anitime.repository.member.MemberRepository;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -13,5 +13,5 @@ public class UserController {
 
     //TODO: API 설계 확인하여 swagger 껍데기 만들기
 
-    private final UserRepository userRepository;
+    private final MemberRepository userRepository;
 }
