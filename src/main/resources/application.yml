@@ -25,4 +25,9 @@ social:
     naver:
       client-id: _1htrmE0J9gJikfSSrAD
       client-secret: 2cq4Dekkhw
+      redirect-url: http://localhost:8080/naver/auth
+      respons_type: code
+      state: anitime
+      grant_type: authorization_code
+
 
