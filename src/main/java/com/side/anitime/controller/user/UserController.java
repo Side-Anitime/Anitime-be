@@ -1,11 +1,9 @@
 package com.side.anitime.controller.user;
 
-import com.side.anitime.service.UserService;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -14,8 +12,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user")
 @RequiredArgsConstructor
 public class UserController {
-
-    private final UserService userService;
 
     @GetMapping("social-login/naver")
     public ResponseEntity<?> socialLogin() {
