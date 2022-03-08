@@ -22,15 +22,14 @@ public class NaverLoginServiceImpl implements SocialLoginService {
     private String naverClientId = "_1htrmE0J9gJikfSSrAD";
     private String naverClientSecret = "2cq4Dekkhw";
     private String naverGrantType = "authorization_code";
+    private String serviceProvider = "NAVER";
     private String state = "anitime";
-
 
     @Override
     public NaverLoginResponse.NaverAuthResponse getAccessToken(String authorizationCode) {
         ResponseEntity<?> response = requestAccessToken(generateAuthCodeRequest(authorizationCode));
         log.info("response [{}]", response);
         NaverLoginResponse.NaverAuthResponse naverAuthResponse = new Gson().fromJson(String.valueOf(response.getBody()), NaverLoginResponse.NaverAuthResponse.class);
-        log.info("naverAuthResponse [{}]", naverAuthResponse);
         return naverAuthResponse;
     }
 
@@ -42,6 +41,7 @@ public class NaverLoginServiceImpl implements SocialLoginService {
         params.add("grant_type", naverGrantType);
         params.add("client_id", naverClientId);
         params.add("client_secret", naverClientSecret);
+        params.add("state", state);
         params.add("code", authorizationCode);
         return new HttpEntity<>(params, header);
     }
@@ -49,6 +49,7 @@ public class NaverLoginServiceImpl implements SocialLoginService {
     private ResponseEntity<String> requestAccessToken(HttpEntity request) {
         RestTemplate restTemplate = new RestTemplate();
         log.info("request [{}]", request);
+        //NOTE: error-description=gran_type is missing. 인데 올바르게 request를 던진 것 같은데 이유를 모르겠다
         return restTemplate.exchange(
                 "https://nid.naver.com/oauth2.0/token",
                 HttpMethod.POST,
