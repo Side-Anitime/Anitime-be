@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <button id="loginButton">로그인</button>
+</body>
+<script>
+    function addEventListenerToButton(){
+        const loginButton = document.getElementById("loginButton");
+
+        loginButton.onclick = function(){
+            window.location.href='https://kauth.kakao.com/oauth/authorize?' +
+                'client_id=aefa1e72726bf640075f4fcebebbec53&' +
+                'redirect_uri=http://localhost:8080/login/oauth2/code/kakao&' +
+                'response_type=code';
+        }
+    }
+    addEventListenerToButton();
+</script>

@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://3.34.178.13:3306/ANITIME?serverTimezone=Asia/Seoul
-    username: kym
-    password: kym123
+    url: jdbc:mysql://localhost:3306/anitime?serverTimezone=Asia/Seoul
+    username: root
+    password: root1234
 
   # springfox-swagger(?? 3.0.0)? spring-boot(2.6.2) ???? ??
   mvc:
@@ -19,4 +19,11 @@ spring:
       hibernate:
         format_sql: true
     database: mysql
+
+    thymeleaf:
+      prefix: classpath:templates/
+      suffix: .html
+      cache: false
+      encoding: UTF-8
+
 
