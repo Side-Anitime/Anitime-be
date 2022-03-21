@@ -20,5 +20,4 @@ public class ResponsePetDto {
         private String name;
         private Gender gender;
     }
-
 }

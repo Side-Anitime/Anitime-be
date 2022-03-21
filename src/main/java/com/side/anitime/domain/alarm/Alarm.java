@@ -2,6 +2,7 @@ package com.side.anitime.domain.alarm;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.side.anitime.codeconst.YesNo;
+import com.side.anitime.domain.common.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,7 +19,7 @@ import java.time.LocalDate;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "ALARM")
-public class Alarm {
+public class Alarm extends BaseEntity {
 
     @Id
     @Column(name = "ALARM_ID")
