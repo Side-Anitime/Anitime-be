@@ -31,6 +31,11 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'com.squareup.okhttp3:okhttp:4.9.3'
 
+	/* 주석 프로세서를 사용하기 위함 */
+	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+	/* oauth2 서버와 통신하기 위함 */
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
 }
 
 test {
