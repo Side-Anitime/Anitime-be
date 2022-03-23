@@ -30,6 +30,8 @@ public class OauthService {
     }
 
     public LoginResponse login(String providerName, String code) {
+        System.out.println("providerName :"+providerName);
+        System.out.println("code :"+code);
         // 프론트에서 넘어온 provider 이름을 통해 InMemoryProviderRepository에서 OauthProvider 가져오기
         OauthProvider provider = inMemoryProviderRepository.findByProviderName(providerName);
 
