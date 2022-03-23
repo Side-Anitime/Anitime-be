@@ -36,6 +36,9 @@ dependencies {
 	/* oauth2 서버와 통신하기 위함 */
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 
+	implementation 'io.jsonwebtoken:jjwt:0.9.1'
+	implementation 'javax.xml.bind:jaxb-api:2.3.1'
+
 }
 
 test {

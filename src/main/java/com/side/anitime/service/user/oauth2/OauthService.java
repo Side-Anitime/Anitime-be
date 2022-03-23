@@ -1,20 +1,32 @@
 package com.side.anitime.service.user.oauth2;
 
-import com.side.anitime.dto.user.oauth2.LoginResponse;
-import com.side.anitime.dto.user.oauth2.OauthProvider;
-import com.side.anitime.dto.user.oauth2.OauthTokenResponse;
+import com.side.anitime.domain.user.Member;
+import com.side.anitime.dto.user.oauth2.*;
 import com.side.anitime.repository.user.oauth2.InMemoryProviderRepository;
+import com.side.anitime.repository.user.oauth2.MemberRepository;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.reactive.function.client.WebClient;
+
+import java.nio.charset.StandardCharsets;
+import java.util.Collections;
+import java.util.Map;
 
 @Service
 public class OauthService {
 
     private final InMemoryProviderRepository inMemoryProviderRepository;
+    private final MemberRepository memberRepository;
+    private final JwtTokenProvider jwtTokenProvider;
 
-    public OauthService(InMemoryProviderRepository inMemoryProviderRepository) {
+    public OauthService(InMemoryProviderRepository inMemoryProviderRepository, MemberRepository memberRepository,
+                        JwtTokenProvider jwtTokenProvider) {
         this.inMemoryProviderRepository = inMemoryProviderRepository;
+        this.memberRepository = memberRepository;
+        this.jwtTokenProvider = jwtTokenProvider;
     }
 
     public LoginResponse login(String providerName, String code) {
@@ -24,25 +36,48 @@ public class OauthService {
         // access token 가져오기
         OauthTokenResponse tokenResponse = getToken(code, provider);
 
-        // TODO 유저 정보 가져오기
-        // TODO 유저 DB에 저장
-        return null;
+        // 유저 정보 가져오기
+        UserProfile userProfile = getUserProfile(providerName, tokenResponse, provider);
+
+        // 유저 DB에 저장
+        Member member = saveOrUpdate(userProfile);
+
+        String accessToken = jwtTokenProvider.createAccessToken(String.valueOf(member.getId()));
+        String refreshToken = jwtTokenProvider.createRefreshToken();
+
+        return LoginResponse.builder()
+                            .id(member.getId())
+                            .name(member.getName())
+                            .email(member.getEmail())
+                            .imageUrl(member.getImageUrl())
+                            .tokenType("Bearer")
+                            .accessToken(accessToken)
+                            .refreshToken(refreshToken)
+                            .build();
+    }
+
+    private Member saveOrUpdate(UserProfile userProfile) {
+        Member member = memberRepository.findByOauthId(userProfile.getOauthId())
+                                        .map(entity -> entity.update(
+                                                userProfile.getEmail(), userProfile.getName(), userProfile.getImageUrl()))
+                                        .orElseGet(userProfile::toMember);
+        return memberRepository.save(member);
     }
 
     private OauthTokenResponse getToken(String code, OauthProvider provider) {
         return WebClient.create()
-                .post()
-                .uri(provider.getTokenUrl())
-                .headers(header -> {
-                    header.setBasicAuth(provider.getClientId(), provider.getClientSecret());
-                    header.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-                    header.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-                    header.setAcceptCharset(Collections.singletonList(StandardCharsets.UTF_8));
-                })
-                .bodyValue(tokenRequest(code, provider))
-                .retrieve()
-                .bodyToMono(OauthTokenResponse.class)
-                .block();
+                        .post()
+                        .uri(provider.getTokenUrl())
+                        .headers(header -> {
+                            header.setBasicAuth(provider.getClientId(), provider.getClientSecret());
+                            header.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+                            header.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+                            header.setAcceptCharset(Collections.singletonList(StandardCharsets.UTF_8));
+                        })
+                        .bodyValue(tokenRequest(code, provider))
+                        .retrieve()
+                        .bodyToMono(OauthTokenResponse.class)
+                        .block();
     }
 
     private MultiValueMap<String, String> tokenRequest(String code, OauthProvider provider) {
@@ -51,5 +86,21 @@ public class OauthService {
         formData.add("grant_type", "authorization_code");
         formData.add("redirect_uri", provider.getRedirectUrl());
         return formData;
+    }
+
+    private UserProfile getUserProfile(String providerName, OauthTokenResponse tokenResponse, OauthProvider provider) {
+        Map<String, Object> userAttributes = getUserAttributes(provider, tokenResponse);
+        return OauthAttributes.extract(providerName, userAttributes);
+    }
+
+    // OAuth 서버에서 유저 정보 map으로 가져오기
+    private Map<String, Object> getUserAttributes(OauthProvider provider, OauthTokenResponse tokenResponse) {
+        return WebClient.create()
+                        .get()
+                        .uri(provider.getUserInfoUrl())
+                        .headers(header -> header.setBearerAuth(tokenResponse.getAccessToken()))
+                        .retrieve()
+                        .bodyToMono(new ParameterizedTypeReference<Map<String, Object>>() {})
+                        .block();
     }
 }

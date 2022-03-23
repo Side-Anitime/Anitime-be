@@ -1,12 +1,12 @@
 package com.side.anitime.domain.user;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
 
 import javax.persistence.*;
 
-@Entity
 @Getter
-@NoArgsConstructor
+@Entity
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,10 +20,10 @@ public class Member {
 
     private String imageUrl;
 
-    public Member(String oauthId, String name, String email, String imageUrl) {
-        this(null, oauthId, name, email, imageUrl);
+    protected Member() {
     }
 
+    @Builder
     public Member(Long id, String oauthId, String name, String email, String imageUrl) {
         this.id = id;
         this.oauthId = oauthId;
