@@ -30,8 +30,6 @@ public class OauthService {
     }
 
     public LoginResponse login(String providerName, String code) {
-        System.out.println("providerName :"+providerName);
-        System.out.println("code :"+code);
         // 프론트에서 넘어온 provider 이름을 통해 InMemoryProviderRepository에서 OauthProvider 가져오기
         OauthProvider provider = inMemoryProviderRepository.findByProviderName(providerName);
 
@@ -71,7 +69,7 @@ public class OauthService {
                         .post()
                         .uri(provider.getTokenUrl())
                         .headers(header -> {
-                            header.setBasicAuth(provider.getClientId(), provider.getClientSecret());
+//                            header.setBasicAuth(provider.getClientId(), provider.getClientSecret());
                             header.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
                             header.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
                             header.setAcceptCharset(Collections.singletonList(StandardCharsets.UTF_8));
@@ -86,6 +84,8 @@ public class OauthService {
         MultiValueMap<String, String> formData = new LinkedMultiValueMap<>();
         formData.add("code", code);
         formData.add("grant_type", "authorization_code");
+        formData.add("client_id", provider.getClientId());
+        formData.add("client_secret", provider.getClientSecret());
         formData.add("redirect_uri", provider.getRedirectUrl());
         return formData;
     }
