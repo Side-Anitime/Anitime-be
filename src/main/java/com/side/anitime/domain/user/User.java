@@ -36,6 +36,9 @@ public class User extends BaseEntity {
     @Column(name = "NICKNAME", length = 20)
     private String nickname;
 
+    @Column(name = "PASSWORD", length = 100)
+    private String password;
+
     @Column(name = "USER_TYPE", columnDefinition = "ENUM('NORMAL', 'NAVER', 'KAKAO', 'NON') DEFAULT 'NORMAL'")
     @Enumerated(EnumType.STRING)
     private UserType userType;
