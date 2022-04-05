@@ -2,6 +2,7 @@ package com.side.anitime.domain.user;
 
 import com.side.anitime.codeconst.UserType;
 import com.side.anitime.codeconst.YesNo;
+import com.side.anitime.domain.category.Category;
 import com.side.anitime.domain.common.BaseEntity;
 import com.side.anitime.domain.pet.Pet;
 import com.side.anitime.domain.plan.Plan;
@@ -30,6 +31,14 @@ public class User extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
+//    NOTE: User -> Category 1:N
+//    @ManyToOne
+//    @JoinColumn(name = "CATEGORY_ID")
+//    private Category category;
+
+    @OneToMany(mappedBy = "user")
+    private List<Pet> pets = new ArrayList<>();
+
     @Column(name = "EMAIL", length = 50)
     private String email;
 
@@ -52,13 +61,7 @@ public class User extends BaseEntity {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
-    @Builder.Default
     private List<Plan> plans = new ArrayList<>();
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
-    @Builder.Default
-    private List<Pet> pets = new ArrayList<>();
 
     //TODO: oauth 토큰 저장 후 네이버에서 들어왔는지 카카오에서 들어왔는지 소셜 정보에 대한 특정 id 또는 index를 담을 column이 필요한가?
 }

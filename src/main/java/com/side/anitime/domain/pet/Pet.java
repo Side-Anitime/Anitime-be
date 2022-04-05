@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.side.anitime.codeconst.AnimalType;
 import com.side.anitime.codeconst.Gender;
 import com.side.anitime.codeconst.YesNo;
+import com.side.anitime.domain.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,8 +28,9 @@ public class Pet {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long petId;
 
-    @Column(name = "USER_ID")
-    private Long userId;
+    @ManyToOne
+    @JoinColumn(name = "USER_ID")
+    private User user;
 
     @Column(name = "TYPE", columnDefinition = "ENUM('DOG', 'CAT') DEFAULT 'DOG'")
     private AnimalType type;
