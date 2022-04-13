@@ -4,5 +4,5 @@ public enum UserType {
     NORMAL,
     NAVER,
     KAKAO,
-    NON
+    NONE
 }
