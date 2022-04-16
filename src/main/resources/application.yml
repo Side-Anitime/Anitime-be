@@ -1,9 +1,10 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://3.34.178.13:3306/ANITIME?serverTimezone=Asia/Seoul
-    username: kym
-    password: kym123
+    #    url: jdbc:mysql://3.34.178.13:3306/ANITIME?serverTimezone=Asia/Seoul
+    url: jdbc:mysql://localhost:3306/anitime?serverTimezone=Asia/Seoul
+    username: root
+    password: root1234
 
   # springfox-swagger(?? 3.0.0)? spring-boot(2.6.2) ???? ??
   mvc:
@@ -13,10 +14,19 @@ spring:
   # jpa ??
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     show-sql: true
     properties:
       hibernate:
         format_sql: true
+        show_sql: true
     database: mysql
+
+jwt:
+  header: Authorization
+  # echo 'anitime-fighting-finishhaza-doslxkdlawkfakanflgkwk'|base64
+  secret: YW5pdGltZS1maWdodGluZy1maW5pc2hoYXphLWRvc2x4a2RsYXdrZmFrYW5mbGdrd2sK
+  # 유효시간 30 min
+  token-validity-in-seconds: 1800
+
 

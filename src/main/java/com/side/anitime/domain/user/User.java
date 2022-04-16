@@ -1,5 +1,6 @@
 package com.side.anitime.domain.user;
 
+import com.side.anitime.codeconst.Role;
 import com.side.anitime.codeconst.UserType;
 import com.side.anitime.codeconst.YesNo;
 import com.side.anitime.domain.category.Category;
@@ -35,6 +36,14 @@ public class User extends BaseEntity {
 //    @ManyToOne
 //    @JoinColumn(name = "CATEGORY_ID")
 //    private Category category;
+    @Column(name = "PASSWORD")
+    private String password;
+
+    @Column(name = "NAME")
+    private String name;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @OneToMany(mappedBy = "user")
     private List<Pet> pets = new ArrayList<>();
