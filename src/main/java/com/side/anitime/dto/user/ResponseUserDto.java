@@ -12,6 +12,8 @@ import lombok.NoArgsConstructor;
 public class ResponseUserDto {
 
     @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class Detail {
         private Long userId;
         private String password;

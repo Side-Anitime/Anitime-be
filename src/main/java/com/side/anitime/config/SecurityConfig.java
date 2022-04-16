@@ -1,5 +1,18 @@
 package com.side.anitime.config;
 
+import com.side.anitime.dto.auth.JwtAccessDeniedHandler;
+import com.side.anitime.dto.auth.JwtAuthenticationEntryPoint;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 @EnableWebSecurity // 웹 보안 활성화
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @RequiredArgsConstructor
