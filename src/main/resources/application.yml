@@ -1,10 +1,17 @@
 spring:
+  h2:
+    console:
+      enabled: true
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:tcp://localhost/~/test
+    username: sa
+    password:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
     #    url: jdbc:mysql://3.34.178.13:3306/ANITIME?serverTimezone=Asia/Seoul
-    url: jdbc:mysql://localhost:3306/anitime?serverTimezone=Asia/Seoul
-    username: root
-    password: root1234
+#    url: jdbc:mysql://localhost:3306/anitime?serverTimezone=Asia/Seoul
+#    username: root
+#    password: root1234
 
   # springfox-swagger(?? 3.0.0)? spring-boot(2.6.2) ???? ??
   mvc:
@@ -14,13 +21,14 @@ spring:
   # jpa ??
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
         format_sql: true
         show_sql: true
-    database: mysql
+    database: h2
+#    database: mysql
 
 jwt:
   header: Authorization

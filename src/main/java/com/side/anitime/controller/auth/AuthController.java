@@ -26,7 +26,6 @@ public class AuthController {
 
     @PostMapping("authenticate")
     public ResponseEntity<TokenResponseDto> authorize(@Valid @RequestBody UserLoginDto userLoginDto) {
-
         TokenResponseDto tokenResponseDto = authService.login(userLoginDto);
 
         // 1. Response Header에 token 값을 넣어준다.

@@ -19,10 +19,8 @@ public class AuthService {
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
     public TokenResponseDto login(UserLoginDto userLoginDto) {
-
         // username, password를 파라미터로 받고 이를 이용해 UsernamePasswordAuthenticationToken을 생성
-        UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(userLoginDto.getUsername(), userLoginDto.getPassword());
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userLoginDto.getUsername(), userLoginDto.getPassword());
 
         // authenticationToken을 이용해서 Authenticaiton 객체를 생성하려고 authenticate 메소드가 실행될 때
         // CustomUserDetailsService에서 override한 loadUserByUsername 메소드가 실행된다.
