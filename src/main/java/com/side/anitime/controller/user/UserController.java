@@ -1,9 +1,15 @@
 package com.side.anitime.controller.user;
 
+import com.side.anitime.domain.user.User;
+import com.side.anitime.dto.auth.JwtTokenProvider;
 import com.side.anitime.repository.user.UserRepository;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Collections;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
@@ -20,7 +26,7 @@ public class UserController {
                 .email(user.get("email"))
                 .password(passwordEncoder.encode(user.get("password")))
                 .roles(Collections.singletonList("ROLE_USER")) // 최초 가입시 USER 로 설정
-                .build()).getId();
+                .build()).getUserId();
     }
 
     // 로그인
