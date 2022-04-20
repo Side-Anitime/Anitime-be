@@ -18,6 +18,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Data
@@ -26,11 +27,11 @@ import java.util.stream.Collectors;
 @Builder
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "USER")
-public class User extends BaseEntity implements UserDetails {
+@Table(name = "user")
+public class User extends BaseEntity {
 
     @Id
-    @Column(name = "USER_ID")
+    @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
@@ -42,7 +43,7 @@ public class User extends BaseEntity implements UserDetails {
     private String password;
 
     @Column(name = "NAME")
-    private String name;
+    private String username;
 
 //    @Enumerated(EnumType.STRING)
 //    private Role role;
@@ -75,40 +76,16 @@ public class User extends BaseEntity implements UserDetails {
     private String accessToken;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private List<Plan> plans = new ArrayList<>();
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.roles.stream()
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
-    }
+    @Column(name = "activated")
+    private boolean activated;
 
-    @Override
-    public String getUsername() {
-        return email;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
-
-    //TODO: oauth 토큰 저장 후 네이버에서 들어왔는지 카카오에서 들어왔는지 소셜 정보에 대한 특정 id 또는 index를 담을 column이 필요한가?
+    @ManyToMany
+    @JoinTable(
+            name = "user_authority",
+            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "authority_name")})
+    private Set<Authority> authorities;
 }
