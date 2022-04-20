@@ -3,6 +3,7 @@ package com.side.anitime.dto.auth;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,10 +20,19 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class JwtTokenProvider {
-    private String secretKey = "webfirewood";
 
+    @Value("${jwt.secret}")
+    private String secretKey;
     // 토큰 유효시간 30분
-    private long tokenValidTime = 30 * 60 * 1000L;
+    @Value("${jwt.token-validity-in-seconds}")
+    private long tokenValidTime;
+
+//    public JwtTokenProvider(
+//            @Value("${jwt.secret}") String secretKey,
+//            @Value("${jwt.token-validity-in-seconds}") long tokenValidTime) {
+//        this.secretKey = secretKey;
+//        this.tokenValidTime = tokenValidTime * 1000;
+//    }
 
     private final UserDetailsService userDetailsService;
 

@@ -2,10 +2,7 @@ package com.side.anitime.dto.user;
 
 import com.side.anitime.codeconst.Role;
 import com.side.anitime.codeconst.UserType;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @Builder
@@ -19,6 +16,8 @@ public class ResponseUserDto {
         private String password;
         private String name;
         private Role role;
+        private String nickname;
+        private String email;
     }
     // TODO 일반 회원가입의 경우 Detail 메서드
 

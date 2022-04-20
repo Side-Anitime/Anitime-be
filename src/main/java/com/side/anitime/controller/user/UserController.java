@@ -3,7 +3,6 @@ package com.side.anitime.controller.user;
 import com.side.anitime.domain.user.User;
 import com.side.anitime.dto.auth.JwtTokenProvider;
 import com.side.anitime.repository.user.UserRepository;
-import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +20,7 @@ public class UserController {
 
     // 회원가입
     @PostMapping("/join")
+    //public Long join(@RequestBody Map<String, String> user) {
     public Long join(@RequestBody Map<String, String> user) {
         return userRepository.save(User.builder()
                 .email(user.get("email"))
