@@ -1,7 +1,5 @@
 package com.side.anitime.controller.auth;
 
-import com.side.anitime.dto.auth.JwtFilter;
-import com.side.anitime.dto.auth.TokenResponseDto;
 import com.side.anitime.dto.user.UserLoginDto;
 import com.side.anitime.service.auth.AuthService;
 import lombok.RequiredArgsConstructor;

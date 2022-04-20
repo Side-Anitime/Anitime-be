@@ -1,7 +1,6 @@
 package com.side.anitime.service.auth;
 
-import com.side.anitime.dto.auth.TokenProvider;
-import com.side.anitime.dto.auth.TokenResponseDto;
+import com.side.anitime.dto.auth.JwtTokenProvider;
 import com.side.anitime.dto.user.UserLoginDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class AuthService {
 
-    private final TokenProvider tokenProvider;
+    private final JwtTokenProvider tokenProvider;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
     public TokenResponseDto login(UserLoginDto userLoginDto) {

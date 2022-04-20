@@ -1,9 +1,7 @@
 package com.side.anitime.domain.user;
 
-import com.side.anitime.codeconst.Role;
 import com.side.anitime.codeconst.UserType;
 import com.side.anitime.codeconst.YesNo;
-import com.side.anitime.domain.category.Category;
 import com.side.anitime.domain.common.BaseEntity;
 import com.side.anitime.domain.pet.Pet;
 import com.side.anitime.domain.plan.Plan;
@@ -12,11 +10,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.w3c.dom.stylesheets.LinkStyle;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
@@ -25,7 +27,7 @@ import java.util.List;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "USER")
-public class User extends BaseEntity {
+public class User extends BaseEntity implements UserDetails {
 
     @Id
     @Column(name = "USER_ID")
@@ -42,8 +44,12 @@ public class User extends BaseEntity {
     @Column(name = "NAME")
     private String name;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
+//    @Enumerated(EnumType.STRING)
+//    private Role role;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Builder.Default
+    private List<String> roles = new ArrayList<>();
+
 
     @OneToMany(mappedBy = "user")
     private List<Pet> pets = new ArrayList<>();
@@ -71,6 +77,38 @@ public class User extends BaseEntity {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
     private List<Plan> plans = new ArrayList<>();
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.roles.stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 
     //TODO: oauth 토큰 저장 후 네이버에서 들어왔는지 카카오에서 들어왔는지 소셜 정보에 대한 특정 id 또는 index를 담을 column이 필요한가?
 }
