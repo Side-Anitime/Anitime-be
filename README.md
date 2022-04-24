@@ -9,3 +9,9 @@
 
 ### 개발정보
 
+
+###ssh 접속 명령어
+ssh -i C:/Dev/Anitime/petpwd.pem ec2-user@ec2-3-34-178-13.ap-northeast-2.compute.amazonaws.com
+
+### sftp 파일 업로드 
+파일 질라 이용해서 pem파일 이용해서 접속
