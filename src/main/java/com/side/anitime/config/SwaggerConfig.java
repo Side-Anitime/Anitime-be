@@ -27,8 +27,8 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Practice Swagger")
-                .description("practice swagger config")
+                .title("애니타임 Swagger")
+                .description("애니타임 백엔드 API 입니다.")
                 .version("1.0")
                 .build();
     }
