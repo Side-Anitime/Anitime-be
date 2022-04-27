@@ -10,26 +10,31 @@ import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+//@AllArgsConstructor
 @NoArgsConstructor
-@AllArgsConstructor
 @Builder
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "COLOR")
-public class Color {
+@Table(name = "PLAN_CATEGORY_TYPE")
+public class PlanCategoryType {
 
-    @Id
-    @Column(name = "COLOR_ID")
+    public PlanCategoryType(Long typeId, String typeName) {
+		super();
+		this.typeId = typeId;
+		this.typeName = typeName;
+	}
+
+	@Id
+    @Column(name = "TYPE_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long colorId;
+    private Long typeId;
 
-    @Column(name = "HEX",  length = 7)
-    private String hex;
+    @Column(name = "TYPE_NAME", length = 10)
+    private String typeName;
 
 }

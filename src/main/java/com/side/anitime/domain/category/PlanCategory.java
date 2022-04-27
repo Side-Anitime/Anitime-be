@@ -1,14 +1,24 @@
 package com.side.anitime.domain.category;
 
-import com.side.anitime.codeconst.PlanType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import com.side.anitime.domain.plan.Plan;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
@@ -24,8 +34,9 @@ public class PlanCategory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long planCategoryId;
 
-    @Column(name = "TYPE", columnDefinition = "ENUM('HOSPITAL', 'WALK', 'BIRTHDAY', 'MOIM', 'ETC') DEFAULT 'ETC'")
-    private PlanType type;
+    @ManyToOne
+    @JoinColumn(name = "TYPE_ID")
+    private PlanCategoryType planCategoryType;
 
     @Column(name = "NAME", length = 10)
     private String name;

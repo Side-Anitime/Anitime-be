@@ -9,6 +9,12 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+      
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
 
   # jpa ??
   jpa:
@@ -19,4 +25,6 @@ spring:
       hibernate:
         format_sql: true
     database: mysql
+    
+    
 
