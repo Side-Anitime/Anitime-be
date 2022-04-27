@@ -1,14 +1,19 @@
 package com.side.anitime.domain.category;
 
-import com.side.anitime.codeconst.ColorType;
-import com.side.anitime.domain.plan.Plan;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
@@ -24,15 +29,7 @@ public class Color {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long colorId;
 
-    @Column(name = "TYPE", columnDefinition = "")
-    @Enumerated(EnumType.STRING)
-    private ColorType type;
-
-    @Column(name = "NAME", length = 10)
-    private String name;
-
-    @OneToOne
-    @JoinColumn(name = "PLAN_ID")
-    private Plan plan;
+    @Column(name = "HEX",  length = 7)
+    private String hex;
 
 }

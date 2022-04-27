@@ -42,4 +42,15 @@ public class PlanController {
     	return ResponseEntity.ok(planService.getPlanCategoryTypeList());
     }
     
+    @GetMapping("/colors")
+    public ResponseEntity<?> getPlanColors(){
+    	return ResponseEntity.ok(planService.getColorList());
+    }
+    
+    //TODO : 일정 등록 API
+    @GetMapping("/save")
+    public ResponseEntity<?> savePlan(){
+    	return null;
+    }
+    
 }
