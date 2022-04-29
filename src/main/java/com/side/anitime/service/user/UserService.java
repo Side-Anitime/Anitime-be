@@ -18,10 +18,10 @@ public class UserService {
     private final UserRepository userRepository;
 
     // 회원가입
-    public Long join(User user) {
+    public String join(User user) {
         duplicateUser(user);
         userRepository.save(user);
-        return user.getUserId();
+        return user.getEmail();
     }
 
     // 중복 회원 확인
@@ -38,9 +38,13 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    // 회원 단건 조회
     @Transactional(readOnly = true)
-    public User findOneUser(Long userId){
-        // getById는 프록시
-        return userRepository.getById(userId);
+    public String findOneUser(String email){
+        String findUserEmail = String.valueOf(userRepository.findByEmail(email));
+        if(findUserEmail.isEmpty()){
+            throw new IllegalStateException("존재하지 않는 이메일 입니다.");
+        }
+        return findUserEmail;
     }
 }

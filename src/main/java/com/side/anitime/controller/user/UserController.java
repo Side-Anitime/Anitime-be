@@ -1,5 +1,7 @@
 package com.side.anitime.controller.user;
 
+import com.side.anitime.codeconst.UserType;
+import com.side.anitime.domain.user.User;
 import com.side.anitime.dto.user.RequestUserDto;
 import com.side.anitime.dto.user.ResponseUserDto;
 import com.side.anitime.repository.user.UserRepository;
@@ -15,17 +17,28 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserRepository userRepository;
     private final UserService userService;
 
-    @GetMapping("/signin")
-    public ResponseUserDto login(@RequestBody RequestUserDto requestUserDto){
+    @GetMapping("/login")
+    public ResponseEntity<?> login(@RequestBody User user) {
+        String findEmail = userService.findOneUser(user.getEmail());
+        System.out.println(findEmail);
         return null;
+
+//        return ResponseEntity.ok(
+//                ResponseUserDto.Detail.builder()
+//                        .userId(user.getUserId())
+//                        .email(user.getEmail())
+//                        .nickname(user.getNickname())
+//                        .userType(user.getUserType())
+//                        .picture(user.getPicture())
+//                        .build()
+//
+//        );
     }
 
-    @PostMapping("/signup")
-    public ResponseEntity<ResponseUserDto> join(@RequestBody RequestUserDto requestUserDto){
-        userRepository.findByEmail(requestUserDto.getEmail());
+    @PostMapping("/join")
+    public ResponseEntity<ResponseUserDto> join(@RequestBody User user){
         return null;
     }
 }
