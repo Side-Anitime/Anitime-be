@@ -19,10 +19,13 @@ repositories {
 	mavenCentral()
 }
 
-
 bootWar {
-       archiveName("anitime.war")
+    archiveBaseName="anitime"
+    archiveVersion="0.0.1-SNAPSHOT"
 }
+
+bootWar.enabled = false
+war.enabled = true
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
