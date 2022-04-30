@@ -1,8 +1,8 @@
-package com.side.anitime.dto.plan;
+package com.side.anitime.dto.response;
 
 import com.side.anitime.codeconst.YesNo;
 import com.side.anitime.domain.category.PlanCategory;
-import com.side.anitime.dto.alarm.ResponseAlarmDto;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

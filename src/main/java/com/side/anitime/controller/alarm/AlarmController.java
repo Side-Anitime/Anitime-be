@@ -1,7 +1,7 @@
 package com.side.anitime.controller.alarm;
 
 import com.side.anitime.domain.alarm.Alarm;
-import com.side.anitime.dto.alarm.ResponseAlarmDto;
+import com.side.anitime.dto.response.ResponseAlarmDto;
 import com.side.anitime.repository.alarm.AlarmRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

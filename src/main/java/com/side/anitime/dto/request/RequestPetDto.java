@@ -1,4 +1,4 @@
-package com.side.anitime.dto.pet;
+package com.side.anitime.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

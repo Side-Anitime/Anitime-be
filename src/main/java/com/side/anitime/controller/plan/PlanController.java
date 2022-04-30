@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.side.anitime.domain.plan.Plan;
-import com.side.anitime.dto.plan.ResponsePlanDto;
+import com.side.anitime.dto.response.ResponsePlanDto;
 import com.side.anitime.repository.plan.PlanRepository;
 import com.side.anitime.service.PlanService;
 
