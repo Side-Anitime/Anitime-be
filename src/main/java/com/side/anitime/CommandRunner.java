@@ -6,8 +6,10 @@ import java.util.List;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import com.side.anitime.domain.category.Color;
-import com.side.anitime.domain.category.PlanCategoryType;
+import com.side.anitime.domain.plan.Alarm;
+import com.side.anitime.domain.plan.Color;
+import com.side.anitime.domain.plan.PlanCategory;
+import com.side.anitime.repository.alarm.AlarmRepository;
 import com.side.anitime.repository.plan.ColorRepository;
 import com.side.anitime.repository.plan.PlanCategoryTypeRepository;
 
@@ -19,15 +21,16 @@ public class CommandRunner implements CommandLineRunner {
 	
 	private final PlanCategoryTypeRepository planCategoryTypeRepository;
 	private final ColorRepository colorRepository;
+	private final AlarmRepository alarmRepository;
 	
 	@Override
 	public void run(String... args) throws Exception {
-		List<PlanCategoryType> planCategoryTypeList = new ArrayList<>();
-		planCategoryTypeList.add(new PlanCategoryType(1L, "병원"));
-		planCategoryTypeList.add(new PlanCategoryType(2L, "일"));
-		planCategoryTypeList.add(new PlanCategoryType(3L, "생일"));
-		planCategoryTypeList.add(new PlanCategoryType(4L, "모임"));
-		planCategoryTypeList.add(new PlanCategoryType(5L, "기타"));
+		List<PlanCategory> planCategoryTypeList = new ArrayList<>();
+		planCategoryTypeList.add(new PlanCategory(1L, "병원"));
+		planCategoryTypeList.add(new PlanCategory(2L, "일"));
+		planCategoryTypeList.add(new PlanCategory(3L, "생일"));
+		planCategoryTypeList.add(new PlanCategory(4L, "모임"));
+		planCategoryTypeList.add(new PlanCategory(5L, "기타"));
 		
 		if(planCategoryTypeRepository.count() < 1) {
 			planCategoryTypeRepository.saveAllAndFlush(planCategoryTypeList);
@@ -42,6 +45,17 @@ public class CommandRunner implements CommandLineRunner {
 		
 		if(colorRepository.count() < 1) {
 			colorRepository.saveAllAndFlush(colorList);
+		}
+		
+		List<Alarm> alarmList = new ArrayList<>();
+		alarmList.add(new Alarm(1L, "-10min"));
+		alarmList.add(new Alarm(2L, "-30min"));
+		alarmList.add(new Alarm(3L, "-1day"));
+		alarmList.add(new Alarm(4L, "ontime"));
+		alarmList.add(new Alarm(5L, "noalarm"));
+		
+		if(alarmRepository.count() < 1) {
+			alarmRepository.saveAllAndFlush(alarmList);
 		}
 		
 	}

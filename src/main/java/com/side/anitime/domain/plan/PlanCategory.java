@@ -1,4 +1,4 @@
-package com.side.anitime.domain.category;
+package com.side.anitime.domain.plan;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,15 +21,15 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "COLOR")
-public class Color {
+@Table(name = "PLAN_CATEGORY")
+public class PlanCategory {
 
     @Id
-    @Column(name = "COLOR_ID")
+    @Column(name = "PLAN_CATEGORY_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long colorId;
+    private Long planCategoryId;
 
-    @Column(name = "HEX",  length = 7)
-    private String hex;
+    @Column(name = "PLAN_CATEGORY_NAME", length = 10)
+    private String planCategoryName;
 
 }
