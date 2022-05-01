@@ -1,4 +1,4 @@
-package com.side.anitime.dto.pet;
+package com.side.anitime.dto.response;
 
 import com.side.anitime.codeconst.Gender;
 import lombok.AllArgsConstructor;

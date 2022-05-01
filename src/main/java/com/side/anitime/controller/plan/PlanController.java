@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.side.anitime.domain.plan.Plan;
-import com.side.anitime.dto.plan.ResponsePlanDto;
+import com.side.anitime.dto.response.ResponsePlanDto;
 import com.side.anitime.repository.plan.PlanRepository;
 import com.side.anitime.service.PlanService;
 
@@ -24,18 +24,18 @@ public class PlanController {
     private final PlanRepository planRepository;
     private final PlanService planService;
 
-    @GetMapping("{planId}")
-    public ResponseEntity<?> getPlanList(@PathVariable Long planId){
-        Plan plan = planRepository.findById(planId).orElseThrow(() -> new IllegalStateException("test"));
-
-        return ResponseEntity.ok(
-                ResponsePlanDto.Detail.builder()
-                        .planId(plan.getPlanId())
-                        .title(plan.getTitle())
-                        .contents(plan.getContents())
-                        .build()
-        );
-    }
+//    @GetMapping("{planId}")
+//    public ResponseEntity<?> getPlanList(@PathVariable Long planId){
+//        Plan plan = planRepository.findById(planId).orElseThrow(() -> new IllegalStateException("test"));
+//
+//        return ResponseEntity.ok(
+//                ResponsePlanDto.Detail.builder()
+//                        .planId(plan.getPlanId())
+//                        .title(plan.getTitle())
+//                        .contents(plan.getContents())
+//                        .build()
+//        );
+//    }
     
     @GetMapping("/category/types")
     public ResponseEntity<?> getPlanCategoryType(){
@@ -47,10 +47,15 @@ public class PlanController {
     	return ResponseEntity.ok(planService.getColorList());
     }
     
+    @GetMapping("/alarm/types")
+	public ResponseEntity<?> getAlarmTypes(){
+	    	return ResponseEntity.ok(planService.getAlarmTypeList());
+	}
+    
     //TODO : 일정 등록 API
-    @GetMapping("/save")
-    public ResponseEntity<?> savePlan(){
-    	return null;
-    }
+//    @GetMapping("/save")
+//    public ResponseEntity<?> savePlan(){
+//    	return null;
+//    }
     
 }

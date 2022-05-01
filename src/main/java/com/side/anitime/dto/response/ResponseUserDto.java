@@ -1,4 +1,4 @@
-package com.side.anitime.dto.user;
+package com.side.anitime.dto.response;
 
 import com.side.anitime.codeconst.UserType;
 import lombok.AllArgsConstructor;
