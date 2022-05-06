@@ -11,7 +11,7 @@ import com.side.anitime.domain.plan.Color;
 import com.side.anitime.domain.plan.PlanCategory;
 import com.side.anitime.repository.alarm.AlarmRepository;
 import com.side.anitime.repository.plan.ColorRepository;
-import com.side.anitime.repository.plan.PlanCategoryTypeRepository;
+import com.side.anitime.repository.plan.PlanCategoryRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CommandRunner implements CommandLineRunner {
 	
-	private final PlanCategoryTypeRepository planCategoryTypeRepository;
+	private final PlanCategoryRepository planCategoryTypeRepository;
 	private final ColorRepository colorRepository;
 	private final AlarmRepository alarmRepository;
 	

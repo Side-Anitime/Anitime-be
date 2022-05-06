@@ -43,6 +43,9 @@ public class User extends BaseEntity {
     @Column(name = "USER_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
+    
+    @Column(name = "USER_TOKEN", length = 50, unique = true)
+    private String userToken;
 
 //    NOTE: User -> Category 1:N
 //    @ManyToOne

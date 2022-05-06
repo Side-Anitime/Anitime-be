@@ -1,4 +1,4 @@
-package com.side.anitime.dto.request;
+package com.side.anitime.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

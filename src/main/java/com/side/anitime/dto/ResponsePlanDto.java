@@ -1,14 +1,9 @@
-package com.side.anitime.dto.response;
-
-import com.side.anitime.codeconst.YesNo;
-import com.side.anitime.domain.plan.PlanCategory;
+package com.side.anitime.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Data
 @Builder
