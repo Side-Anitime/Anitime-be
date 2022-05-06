@@ -1,34 +1,47 @@
 package com.side.anitime.controller.user;
 
-import com.side.anitime.codeconst.UserType;
 import com.side.anitime.domain.user.User;
 import com.side.anitime.dto.user.RequestUserDto;
 import com.side.anitime.dto.user.ResponseUserDto;
-import com.side.anitime.repository.user.UserRepository;
 import com.side.anitime.service.user.UserService;
 import com.side.anitime.util.CipherUtil;
+import com.side.anitime.util.RandomSecure;
+import com.side.anitime.util.common.CommonResponse;
+import com.side.anitime.util.common.ResponseMessage;
+import com.side.anitime.util.common.StatusCode;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RestController
 @Api(tags = "일반 로그인 API")
 @RequestMapping("/user")
 @RequiredArgsConstructor
 public class UserController {
-
     private final UserService userService;
     // RSA 암호화 하기 위해 추가
     private final CipherUtil ciperUtil;
+    private final RandomSecure randomSecure;
 
-    @GetMapping("/login")
-    public ResponseEntity<?> login(@RequestParam(value="email") String email, @RequestParam(value="password") String password) {
-        //Optional<User> findEmail = userService.findOneUser(email);
-        //User user = userService.findOneUser(email).orElseThrow(() -> new IllegalStateException("존재하지 않는 사용자 입니다.");
-        User user = userService.findOneUser(email);
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody RequestUserDto requestUserDto) {
+//        Optional<?> requestToken = Optional.ofNullable(requestUserDto.getInitToken());
+        if(requestUserDto.getInitToken() == null || requestUserDto.getInitToken() == ""){
+            // initToken 생성
+            String initToken = randomSecure.generate();
+
+            /* RSA 로직 활용 & DB에 넣어주기 */
+
+            return new ResponseEntity(CommonResponse.res(StatusCode.UNAUTHORIZED, ResponseMessage.NOT_FOUND_USER,
+                    ResponseUserDto.GetInitToken.builder()
+                            .initToken(initToken)
+                            .build()), HttpStatus.OK);
+        }else{
+            /* 넘어온 initToken을 가지고 해당 공개키 내려주기 */
+
+            User user = userService.findOneUser(requestUserDto.getEmail());
             return ResponseEntity.ok(
                     ResponseUserDto.Detail.builder()
                             .userId(user.getUserId())
@@ -39,10 +52,11 @@ public class UserController {
                             .build()
 
             );
+        }
     }
 
     @PostMapping("/join")
-    public ResponseEntity<ResponseUserDto> join(@RequestBody User user){
-        return null;
+    public ResponseEntity<?> join(@RequestBody User user){
+        return ResponseEntity.ok(userService.join(user));
     }
 }

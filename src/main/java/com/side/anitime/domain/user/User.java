@@ -59,12 +59,16 @@ public class User extends BaseEntity {
     @Column(name = "PICTURE", length = 50)
     private String picture;
 
+    // oauth2 Token
     @Column(name = "ACCESS_TOKEN", length = 50)
     private String accessToken;
+
+    // 일반 회원가입 토큰
+    @Column(name = "USER_TOKEN")
+    private String userToken;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID", referencedColumnName = "USER_ID")
     private List<Plan> plans = new ArrayList<>();
 
-    //TODO: oauth 토큰 저장 후 네이버에서 들어왔는지 카카오에서 들어왔는지 소셜 정보에 대한 특정 id 또는 index를 담을 column이 필요한가?
 }

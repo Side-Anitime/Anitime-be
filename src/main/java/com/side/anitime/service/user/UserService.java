@@ -41,8 +41,6 @@ public class UserService {
     // 회원 단건 조회
     @Transactional(readOnly = true)
     public User findOneUser(String email) {
-//        Optional<User> findUserEmail = Optional.ofNullable(userRepository.findByEmail(email)
-//                .orElseThrow(() -> new IllegalStateException("존재하지 않는 회원입니다.")));
         User user = userRepository.findOneEmail(email);
         return user;
     }

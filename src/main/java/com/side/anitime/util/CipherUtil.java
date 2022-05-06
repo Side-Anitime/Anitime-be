@@ -27,7 +27,6 @@ import org.springframework.stereotype.Component;
 public class CipherUtil {
 
     private static KeyPairGenerator keyPairGenerator = null;
-
     private final SecureRandom random = new SecureRandom();
 
     public KeyPair getKeyPair() {

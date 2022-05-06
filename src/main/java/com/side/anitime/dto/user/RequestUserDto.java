@@ -1,9 +1,14 @@
 package com.side.anitime.dto.user;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
-//@Data
-//@RequiredArgsConstructor
-//@NoArgsConstructor
+@Getter
+@RequiredArgsConstructor
 public class RequestUserDto {
+
+    private String email;
+    private String password;
+    private String initToken;
+
 }
