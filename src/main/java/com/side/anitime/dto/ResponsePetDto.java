@@ -1,4 +1,4 @@
-package com.side.anitime.dto.response;
+package com.side.anitime.dto;
 
 import com.side.anitime.codeconst.Gender;
 import lombok.AllArgsConstructor;

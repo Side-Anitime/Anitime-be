@@ -1,9 +1,9 @@
 package com.side.anitime.controller.pet;
 
 import com.side.anitime.domain.pet.Pet;
-import com.side.anitime.dto.request.RequestPetDto;
-import com.side.anitime.dto.response.ResponseAlarmDto;
-import com.side.anitime.dto.response.ResponsePetDto;
+import com.side.anitime.dto.RequestPetDto;
+import com.side.anitime.dto.ResponseAlarmDto;
+import com.side.anitime.dto.ResponsePetDto;
 import com.side.anitime.repository.pet.PetRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

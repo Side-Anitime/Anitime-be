@@ -1,14 +1,15 @@
 package com.side.anitime.controller.plan;
 
+import javax.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.side.anitime.domain.plan.Plan;
-import com.side.anitime.dto.response.ResponsePlanDto;
-import com.side.anitime.repository.plan.PlanRepository;
+import com.side.anitime.dto.Plan;
 import com.side.anitime.service.PlanService;
 
 import io.swagger.annotations.Api;
@@ -20,22 +21,17 @@ import lombok.RequiredArgsConstructor;
 @Api(value = "일정관련 API", tags = "일정관련 API")
 public class PlanController {
 
-    //TODO: API 설계 확인하여 swagger 껍데기 만들기
-    private final PlanRepository planRepository;
     private final PlanService planService;
-
-//    @GetMapping("{planId}")
-//    public ResponseEntity<?> getPlanList(@PathVariable Long planId){
-//        Plan plan = planRepository.findById(planId).orElseThrow(() -> new IllegalStateException("test"));
-//
-//        return ResponseEntity.ok(
-//                ResponsePlanDto.Detail.builder()
-//                        .planId(plan.getPlanId())
-//                        .title(plan.getTitle())
-//                        .contents(plan.getContents())
-//                        .build()
-//        );
-//    }
+    
+    @PostMapping("/save")
+    public ResponseEntity<?> savePlan(@Valid @RequestBody Plan.SaveReq vo){
+    	try {
+    		planService.savePlan(vo);
+    	}catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	return ResponseEntity.ok(null);
+    }
     
     @GetMapping("/category/types")
     public ResponseEntity<?> getPlanCategoryType(){
@@ -51,11 +47,5 @@ public class PlanController {
 	public ResponseEntity<?> getAlarmTypes(){
 	    	return ResponseEntity.ok(planService.getAlarmTypeList());
 	}
-    
-    //TODO : 일정 등록 API
-//    @GetMapping("/save")
-//    public ResponseEntity<?> savePlan(){
-//    	return null;
-//    }
     
 }

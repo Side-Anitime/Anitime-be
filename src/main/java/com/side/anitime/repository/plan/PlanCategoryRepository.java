@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.side.anitime.domain.plan.PlanCategory;
 
-public interface PlanCategoryTypeRepository extends JpaRepository<PlanCategory, Long> {
+public interface PlanCategoryRepository extends JpaRepository<PlanCategory, Long> {
 	
 }
