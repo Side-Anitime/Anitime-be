@@ -1,6 +1,7 @@
 package com.side.anitime.domain.user;
 
 import com.side.anitime.domain.common.BaseEntity;
+import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 

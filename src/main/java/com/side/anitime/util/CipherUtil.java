@@ -1,85 +1,96 @@
 package com.side.anitime.util;
 
-import java.security.InvalidKeyException;
-import java.security.Key;
 import java.security.KeyFactory;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
-import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.SecureRandom;
-import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
+import java.util.HashMap;
 
-import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
-import javax.annotation.PostConstruct;
-
 import org.springframework.stereotype.Component;
 
 @Component
 public class CipherUtil {
-
-    private static KeyPairGenerator keyPairGenerator = null;
-    private final SecureRandom random = new SecureRandom();
-
-    public KeyPair getKeyPair() {
-        return keyPairGenerator.genKeyPair();
-    }
-
-    public String encrypt(String content, Key pubKey) throws NoSuchAlgorithmException, NoSuchProviderException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
-        byte[] contentBytes = content.getBytes();
-        Cipher cipher = Cipher.getInstance("RSA");
-        cipher.init(Cipher.ENCRYPT_MODE, pubKey);
-        byte[] cipherContent = cipher.doFinal(contentBytes);
-        String encoded = Base64.getEncoder().encodeToString(cipherContent);
-        return encoded;
-    }
-
-    public String decrypt(String cipherContent, Key privKey) throws NoSuchAlgorithmException, NoSuchProviderException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
-        Cipher cipher = Cipher.getInstance("RSA");
-        cipher.init(Cipher.DECRYPT_MODE, privKey);
-        byte[] cipherContentBytes = Base64.getDecoder().decode(cipherContent.getBytes());
-        byte[] decryptedContent = cipher.doFinal(cipherContentBytes);
-        String decoded = new String(decryptedContent);
-        return decoded;
-    }
-
-    public String encodeKey(Key key) {
-        byte[] keyBytes = key.getEncoded();
-        String encodedKeyStr = Base64.getEncoder().encodeToString(keyBytes);
-        return encodedKeyStr;
-    }
-
-    public PublicKey decodePublicKey(String keyStr) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        byte[] keyBytes = Base64.getDecoder().decode(keyStr);
-        X509EncodedKeySpec spec = new X509EncodedKeySpec(keyBytes);
-        KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-        PublicKey key = keyFactory.generatePublic(spec);
-        return key;
-    }
-
-    public PrivateKey decodePrivateKey(String keyStr) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        byte[] keyBytes = Base64.getDecoder().decode(keyStr);
-        PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(keyBytes);
-        KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-        PrivateKey key = keyFactory.generatePrivate(keySpec);
-        return key;
-    }
-
-    @PostConstruct
-    private void init() {
+    static final int KEY_SIZE = 2048;
+    /**
+     * 키페어 생성
+     */
+    public HashMap<String, String> createKeypairAsString() {
+        HashMap<String, String> stringKeypair = new HashMap<>();
         try {
-            if(keyPairGenerator == null) keyPairGenerator = KeyPairGenerator.getInstance("RSA");
-            keyPairGenerator.initialize(1024, random);
-        } catch(Exception e) {
+            SecureRandom secureRandom = new SecureRandom();
+            KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
+            keyPairGenerator.initialize(KEY_SIZE, secureRandom);
+            KeyPair keyPair = keyPairGenerator.genKeyPair();
+
+            PublicKey publicKey = keyPair.getPublic();
+            PrivateKey privateKey = keyPair.getPrivate();
+
+            String stringPublicKey = Base64.getEncoder().encodeToString(publicKey.getEncoded());
+            String stringPrivateKey = Base64.getEncoder().encodeToString(privateKey.getEncoded());
+
+            stringKeypair.put("publicKey", stringPublicKey);
+            stringKeypair.put("privateKey", stringPrivateKey);
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
+        return stringKeypair;
+    }
+
+    /**
+     * 암호화
+     */
+    public String encode(String plainData, String stringPublicKey) {
+        String encryptedData = null;
+        try {
+            //평문으로 전달받은 공개키를 공개키객체로 만드는 과정
+            KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+            byte[] bytePublicKey = Base64.getDecoder().decode(stringPublicKey.getBytes());
+            X509EncodedKeySpec publicKeySpec = new X509EncodedKeySpec(bytePublicKey);
+            PublicKey publicKey = keyFactory.generatePublic(publicKeySpec);
+
+            //만들어진 공개키객체를 기반으로 암호화모드로 설정하는 과정
+            Cipher cipher = Cipher.getInstance("RSA");
+            cipher.init(Cipher.ENCRYPT_MODE, publicKey);
+
+            //평문을 암호화하는 과정
+            byte[] byteEncryptedData = cipher.doFinal(plainData.getBytes());
+            encryptedData = Base64.getEncoder().encodeToString(byteEncryptedData);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return encryptedData;
+    }
+
+    /**
+     * 복호화
+     */
+    public String decode(String encryptedData, String stringPrivateKey) {
+        String decryptedData = null;
+        try {
+            //평문으로 전달받은 개인키를 개인키객체로 만드는 과정
+            KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+            byte[] bytePrivateKey = Base64.getDecoder().decode(stringPrivateKey.getBytes());
+            PKCS8EncodedKeySpec privateKeySpec = new PKCS8EncodedKeySpec(bytePrivateKey);
+            PrivateKey privateKey = keyFactory.generatePrivate(privateKeySpec);
+
+            //만들어진 개인키객체를 기반으로 암호화모드로 설정하는 과정
+            Cipher cipher = Cipher.getInstance("RSA");
+            cipher.init(Cipher.DECRYPT_MODE, privateKey);
+
+            //암호문을 평문화하는 과정
+            byte[] byteEncryptedData = Base64.getDecoder().decode(encryptedData.getBytes());
+            byte[] byteDecryptedData = cipher.doFinal(byteEncryptedData);
+            decryptedData = new String(byteDecryptedData);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return decryptedData;
     }
 }

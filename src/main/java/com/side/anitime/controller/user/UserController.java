@@ -15,6 +15,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+import java.util.HashMap;
+
 @RestController
 @Api(tags = "일반 로그인 API")
 @RequestMapping("/user")
@@ -25,14 +29,22 @@ public class UserController {
     private final CipherUtil ciperUtil;
     private final RandomSecure randomSecure;
 
+
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody RequestUserDto requestUserDto) {
+    public ResponseEntity<?> login(@RequestBody RequestUserDto requestUserDto) throws NoSuchAlgorithmException, InvalidKeySpecException {
 //        Optional<?> requestToken = Optional.ofNullable(requestUserDto.getInitToken());
+//        HashMap<String, String> rsaKeyPair = ciperUtil.createKeypairAsString();
+//        String publicKey = rsaKeyPair.get("publicKey"); // 공개키
+//        String privateKey = rsaKeyPair.get("privateKey"); // 개인키
+//
+//        System.out.println(publicKey);
+//        System.out.println(privateKey);
+
         if(requestUserDto.getInitToken() == null || requestUserDto.getInitToken() == ""){
             // initToken 생성
             String initToken = randomSecure.generate();
-
             /* RSA 로직 활용 & DB에 넣어주기 */
+
 
             return new ResponseEntity(CommonResponse.res(StatusCode.UNAUTHORIZED, ResponseMessage.NOT_FOUND_USER,
                     ResponseUserDto.GetInitToken.builder()
@@ -53,6 +65,7 @@ public class UserController {
 
             );
         }
+//        return null;
     }
 
     @PostMapping("/join")

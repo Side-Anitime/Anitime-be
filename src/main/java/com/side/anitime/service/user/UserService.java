@@ -1,6 +1,8 @@
 package com.side.anitime.service.user;
 
+import com.side.anitime.domain.user.Token;
 import com.side.anitime.domain.user.User;
+import com.side.anitime.repository.user.TokenRepository;
 import com.side.anitime.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,12 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final TokenRepository tokenRepository;
+
+    // 로그인 시 토큰 정보 넣어주기
+    public void tokenRegister(Token token){
+        tokenRepository.save(token);
+    }
 
     // 회원가입
     public String join(User user) {
