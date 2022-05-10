@@ -11,10 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-@Service
+
 @Transactional
 @RequiredArgsConstructor
-// final이 있는 필드만 가지고 생성자 생성
+@Service
 public class UserService {
 
     private final UserRepository userRepository;
@@ -47,9 +47,9 @@ public class UserService {
     }
 
     // 회원 단건 조회
-    @Transactional(readOnly = true)
-    public User findOneUser(String email) {
-        User user = userRepository.findOneEmail(email);
-        return user;
-    }
+//    @Transactional(readOnly = true)
+//    public User findOneUser(String email) {
+//        User user = userRepository.findOneEmail(email);
+//        return user;
+//    }
 }

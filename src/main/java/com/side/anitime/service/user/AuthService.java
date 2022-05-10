@@ -11,9 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 
-@Service
+
 @Transactional
 @RequiredArgsConstructor
+@Service
 public class AuthService {
 
     private final TokenRepository tokenRepository;
