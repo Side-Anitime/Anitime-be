@@ -20,7 +20,7 @@ public class AuthService {
     private final TokenRepository tokenRepository;
     private final RandomSecure randomSecure;
     private final CipherUtil cipherUtil;
-    private final Token token;
+//    private final Token token;
 
     public Token getTokenSave(){
         /**
@@ -28,6 +28,7 @@ public class AuthService {
          * DB에 쌓아두고 있다가 날짜 기준으로 어느정도 쌓일 경우 삭제 처리
          */
         /* RSA 로직 활용 & DB에 넣어주기 */
+        Token token = new Token();
         HashMap<String, String> rsaKeyPair = cipherUtil.createKeypairAsString();
         String publicKey = rsaKeyPair.get("publicKey"); // 공개키
         String privateKey = rsaKeyPair.get("privateKey"); // 개인키
