@@ -33,7 +33,7 @@ public class AuthService {
         String publicKey = rsaKeyPair.get("publicKey"); // 공개키
         String privateKey = rsaKeyPair.get("privateKey"); // 개인키
         // initToken 생성
-        String initToken = randomSecure.generate();
+        String initToken = randomSecure.initGenerate();
 
         token.setInitToken(initToken);
         token.setPublicKey(publicKey);

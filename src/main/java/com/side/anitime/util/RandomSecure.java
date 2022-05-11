@@ -10,17 +10,22 @@ public class RandomSecure {
     private final String randomNum = "0123456789";
     private final String mixRandom = randomEng + randomNum;
 
-    private final int length = 10;
+    private final int initLength = 10;
 
     private static SecureRandom random = new SecureRandom();
 
-    public String generate(){
-        if (length < 1) throw new IllegalArgumentException("length must be a positive number.");
-        StringBuilder sb = new StringBuilder(length);
-        for (int i = 0; i < length; i++) {
+    public String initGenerate(){
+        if (initLength < 1) throw new IllegalArgumentException("length must be a positive number.");
+        StringBuilder sb = new StringBuilder(initLength);
+        for (int i = 0; i < initLength; i++) {
             sb.append(mixRandom.charAt(random.nextInt(mixRandom.length())));
         }
         return sb.toString();
+    }
+
+    public String userGenerate(){
+        String tmpString = initGenerate().toString();
+        return "anitime" + tmpString;
     }
 }
 

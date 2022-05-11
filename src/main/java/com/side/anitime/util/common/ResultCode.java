@@ -2,7 +2,6 @@ package com.side.anitime.util.common;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
-
 @Getter
 public enum ResultCode {
     // Common

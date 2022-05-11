@@ -29,17 +29,7 @@ public class UserDto {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class GetInitToken {
-        private String initToken;
-    }
-
-    @Data
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
     public static class GetAccessToken {
         private String accessToken;
     }
-
-
 }
