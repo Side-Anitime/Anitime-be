@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-public class ResponseUserDto {
+public class ResponseUserDTO {
 
     @Data
     @Builder
