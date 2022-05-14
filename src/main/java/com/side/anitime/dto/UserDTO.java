@@ -3,11 +3,25 @@ package com.side.anitime.dto;
 import com.side.anitime.codeconst.UserType;
 import lombok.*;
 
-public class UserDto {
+import javax.persistence.Lob;
+
+public class UserDTO {
 
     /**
      * request DTO 부분
      */
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class reqUserToken {
+        private String initToken;
+
+        @Lob
+        private String emailKey;
+        @Lob
+        private String passwordKey;
+    }
 
 
     /**

@@ -1,20 +1,15 @@
 package com.side.anitime.controller.user;
 
+import com.side.anitime.domain.user.Token;
 import com.side.anitime.domain.user.User;
-import com.side.anitime.dto.UserDto;
+import com.side.anitime.dto.UserDTO;
+import com.side.anitime.service.user.AuthService;
 import com.side.anitime.service.user.UserService;
 import com.side.anitime.util.CipherUtil;
-import com.side.anitime.util.RandomSecure;
-import com.side.anitime.util.common.ResultCode;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
-import java.util.HashMap;
 
 @RestController
 @Api(tags = "일반 로그인 API")
@@ -23,6 +18,16 @@ import java.util.HashMap;
 public class UserController {
 
     private final UserService userService;
+    private final AuthService authService;
+    private final CipherUtil cipherUtil;
+
+    public ResponseEntity<?> login(@RequestBody UserDTO.reqUserToken reqUserToken){
+        Token token = authService.findByKeypair(reqUserToken.getInitToken());
+        //cipherUtil.decode();
+        //cipherUtil.encode();
+
+        return null;
+    }
 
 //    @PostMapping("/login")
 //    public ResponseEntity<?> login(@RequestBody UserDto.ReqUser userDto) throws NoSuchAlgorithmException, InvalidKeySpecException {

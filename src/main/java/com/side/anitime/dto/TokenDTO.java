@@ -5,7 +5,24 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-public class TokenDto {
+import javax.persistence.Lob;
+
+public class TokenDTO {
+
+    /**
+     * Token Request 부분
+     */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class reqUserToken {
+        private String initToken;
+
+        @Lob
+        private String emailKey;
+        @Lob
+        private String passwordKey;
+    }
 
     /**
      * Token Response 부분

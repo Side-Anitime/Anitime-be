@@ -1,7 +1,6 @@
 package com.side.anitime.service.user;
 
 import com.side.anitime.domain.user.Token;
-import com.side.anitime.dto.AuthDto;
 import com.side.anitime.repository.user.TokenRepository;
 import com.side.anitime.util.CipherUtil;
 import com.side.anitime.util.RandomSecure;
@@ -35,12 +34,22 @@ public class AuthService {
         // initToken 생성
         String initToken = randomSecure.initGenerate();
 
+        /**
+         * TODO initToken 값이 디비에 있는 지 확인해서 없으면 재생성 로직 추가
+         */
+
         token.setInitToken(initToken);
         token.setPublicKey(publicKey);
         token.setPrivateKey(privateKey);
 
         tokenRepository.save(token);
 
+        return token;
+    }
+
+    // TODO initToken으로 키 값 찾기
+    public Token findByKeypair(String initToken){
+        Token token = tokenRepository.findByKey(initToken);
         return token;
     }
 }
