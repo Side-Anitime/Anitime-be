@@ -1,14 +1,28 @@
 spring:
+  h2:
+    console:
+      enabled: true
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://3.34.178.13:3306/ANITIME?serverTimezone=Asia/Seoul
-    username: kym
-    password: kym123
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:tcp://localhost/~/test
+    username: sa
+    password:
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://3.34.178.13:3306/ANITIME?serverTimezone=Asia/Seoul
+#    username: kym
+#    password: kym123
 
   # springfox-swagger(?? 3.0.0)? spring-boot(2.6.2) ???? ??
   mvc:
     pathmatch:
-      matching-strategy: ant_path_matcher
+      matching-strategy: ANT_PATH_MATCHER
+      
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
 
   # jpa ??
   jpa:
@@ -18,5 +32,8 @@ spring:
     properties:
       hibernate:
         format_sql: true
-    database: mysql
+    database: h2
+#    database: mysql
+    
+    
 

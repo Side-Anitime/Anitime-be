@@ -1,4 +1,4 @@
-package com.side.anitime.dto.alarm;
+package com.side.anitime.dto;
 
 import com.side.anitime.codeconst.YesNo;
 import lombok.AllArgsConstructor;
@@ -12,7 +12,7 @@ import java.util.List;
 
 @Data
 @Builder
-public class ResponseAlarmDto {
+public class ResponseAlarmDTO {
 
     @Data
     @Builder

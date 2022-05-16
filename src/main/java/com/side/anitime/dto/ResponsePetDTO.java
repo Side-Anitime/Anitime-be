@@ -1,19 +1,23 @@
-package com.side.anitime.dto.pet;
+package com.side.anitime.dto;
 
+import com.side.anitime.codeconst.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-public class RequestPetDto {
+@Data
+@Builder
+public class ResponsePetDTO {
 
     @Data
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class Test {
+    public static class Detail {
         private Long id;
         private String name;
-        private String personality;
+        private Gender gender;
     }
+
 }

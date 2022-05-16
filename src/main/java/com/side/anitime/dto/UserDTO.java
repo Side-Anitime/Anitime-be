@@ -1,15 +1,32 @@
-package com.side.anitime.dto.user;
+package com.side.anitime.dto;
 
 import com.side.anitime.codeconst.UserType;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
-@Builder
-public class ResponseUserDto {
+import javax.persistence.Lob;
 
+public class UserDTO {
+
+    /**
+     * request DTO 부분
+     */
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class reqUserToken {
+        private String initToken;
+
+        @Lob
+        private String emailKey;
+        @Lob
+        private String passwordKey;
+    }
+
+
+    /**
+     * response DTO 부분
+     */
     @Data
     @Builder
     @NoArgsConstructor
@@ -29,5 +46,4 @@ public class ResponseUserDto {
     public static class GetAccessToken {
         private String accessToken;
     }
-    // TODO : Oauth 연동할 경우에 카카오나 네이버에서 받아오는 정보가 ID TYPE PICTURE 정보 정도면 되지않을까?
 }

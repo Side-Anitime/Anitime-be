@@ -1,9 +1,9 @@
 package com.side.anitime.controller.pet;
 
 import com.side.anitime.domain.pet.Pet;
-import com.side.anitime.dto.alarm.ResponseAlarmDto;
-import com.side.anitime.dto.pet.RequestPetDto;
-import com.side.anitime.dto.pet.ResponsePetDto;
+import com.side.anitime.dto.RequestPetDTO;
+import com.side.anitime.dto.ResponseAlarmDTO;
+import com.side.anitime.dto.ResponsePetDTO;
 import com.side.anitime.repository.pet.PetRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -23,17 +23,17 @@ public class PetController {
 
     @ApiOperation(value = "반려동물 조회")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Successfully register pet", response = ResponsePetDto.class
+            @ApiResponse(code = 201, message = "Successfully register pet", response = ResponsePetDTO.class
             )
     })
     @PostMapping
-    public ResponseEntity<?> registerPet(@RequestBody RequestPetDto requestDto) {
+    public ResponseEntity<?> registerPet(@RequestBody RequestPetDTO requestDto) {
         return ResponseEntity.ok(null);
     }
 
     @ApiOperation(value = "반려동물 조회")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successfully get pet list", response = ResponsePetDto.class
+            @ApiResponse(code = 200, message = "Successfully get pet list", response = ResponsePetDTO.class
             )
     })
     @GetMapping("{userId}")
@@ -43,7 +43,7 @@ public class PetController {
 
     @ApiOperation(value = "반려동물 상세 조회")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successfully get detail pet", response = ResponsePetDto.class
+            @ApiResponse(code = 200, message = "Successfully get detail pet", response = ResponsePetDTO.class
             )
     })
     @GetMapping("{userId}/{petId}")
@@ -53,7 +53,7 @@ public class PetController {
 
     @ApiOperation(value = "반려동물 품종 조회")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successfully get pet kind", response = ResponsePetDto.class
+            @ApiResponse(code = 200, message = "Successfully get pet kind", response = ResponsePetDTO.class
             )
     })
     @GetMapping("kind/{keyword}")
