@@ -15,13 +15,10 @@ public class TokenDTO {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class reqUserToken {
+    public static class reqVerify {
         private String initToken;
-
-        @Lob
-        private String emailKey;
-        @Lob
-        private String passwordKey;
+        private String email;
+        private String password;
     }
 
     /**
@@ -34,5 +31,17 @@ public class TokenDTO {
     public static class tokenDetail {
         private String initToken;
         private String publicKey;
+    }
+
+    @Data
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class verifyInfo {
+        private String initToken;
+        private String email;
+        @Lob
+        private String encodeKey;
+        private String decodeKey;
     }
 }

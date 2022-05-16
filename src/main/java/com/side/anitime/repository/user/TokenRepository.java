@@ -9,4 +9,6 @@ import org.springframework.data.repository.query.Param;
 public interface TokenRepository extends JpaRepository<Token, Long> {
     @Query("select t from Token t where t.initToken = :initToken")
     Token findByKey(@Param("initToken") String initToken);
+//    TODO No property id found for type Token! 에러나면서 못찾음
+//    Token findById(String initToken);
 }

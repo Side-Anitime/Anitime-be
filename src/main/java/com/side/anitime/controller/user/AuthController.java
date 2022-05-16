@@ -39,14 +39,22 @@ public class AuthController {
         ), HttpStatus.CREATED);
     }
 
-    // TODO initToken 으로 DB에 등록된 키 값 가져오기
+
     @PostMapping(value = "/verify")
     //public ResponseEntity<?> getVerifyToken(TokenDTO.reqUserToken tokenDto) throws Exception {
-    public ResponseEntity<?> getVerifyToken() throws Exception {
-        String email = "ymyj33@naver.com";
-        String password = "1234";
-//        String initToken = tokenDto.getInitToken();
-//        Token token = authService.findByKeypair(initToken);
-        return null;
+    public ResponseEntity<?> getVerifyToken(TokenDTO.reqVerify tokenDto) throws Exception {
+        String initToken = tokenDto.getInitToken();
+        // TODO initToken 으로 DB에 등록된 키 값 가져오기
+        Token token = authService.findByKeypair(initToken);
+        String encStr = cipherUtil.encode(tokenDto.getPassword(), token.getPublicKey());
+        String decodeStr = cipherUtil.decode(encStr, token.getPrivateKey());
+
+        return new ResponseEntity(ApiCommResponse.OK(TokenDTO.verifyInfo.builder()
+                .initToken(token.getInitToken())
+                .encodeKey(encStr)
+                .decodeKey(decodeStr)
+                .email(tokenDto.getEmail())
+                .build()
+        ), HttpStatus.OK);
     }
 }

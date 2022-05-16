@@ -1,4 +1,4 @@
 package com.side.anitime.dto;
 
-public class RequestPlanDto {
+public class RequestAlarmDTO {
 }

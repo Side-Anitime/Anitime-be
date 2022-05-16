@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-public class ResponsePlanDto {
+public class ResponsePlanDTO {
 
     @AllArgsConstructor
     @NoArgsConstructor

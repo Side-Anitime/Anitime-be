@@ -12,7 +12,7 @@ import java.util.List;
 
 @Data
 @Builder
-public class ResponseAlarmDto {
+public class ResponseAlarmDTO {
 
     @Data
     @Builder
