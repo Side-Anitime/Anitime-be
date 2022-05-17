@@ -16,9 +16,7 @@ public class UserDTO {
     @AllArgsConstructor
     public static class reqUserToken {
         private String initToken;
-
-        @Lob
-        private String emailKey;
+        private String email;
         @Lob
         private String passwordKey;
     }
@@ -37,6 +35,7 @@ public class UserDTO {
         private String nickname;
         private UserType userType;
         private String picture;
+        private String userToken;
     }
 
     @Data

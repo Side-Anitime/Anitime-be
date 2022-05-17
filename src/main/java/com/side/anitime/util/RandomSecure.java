@@ -25,7 +25,7 @@ public class RandomSecure {
 
     public String userGenerate(){
         String tmpString = initGenerate().toString();
-        return "anitime" + tmpString;
+        return "ani" + tmpString + "time";
     }
 }
 
