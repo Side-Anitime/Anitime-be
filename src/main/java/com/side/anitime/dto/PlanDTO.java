@@ -1,5 +1,7 @@
 package com.side.anitime.dto;
 
+import java.util.List;
+
 import javax.validation.constraints.Positive;
 
 import com.google.gson.JsonArray;
@@ -31,6 +33,8 @@ public class PlanDTO {
 		
 		@Positive
 		private Long alarmId;
+		
+		private List<Long> petIds;
 		
 	}
 	

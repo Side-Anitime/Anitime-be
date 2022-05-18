@@ -4,22 +4,27 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.side.anitime.domain.pet.Pet;
 import com.side.anitime.domain.plan.Alarm;
 import com.side.anitime.domain.plan.Color;
 import com.side.anitime.domain.plan.Plan;
 import com.side.anitime.domain.plan.PlanCategory;
+import com.side.anitime.domain.plan.PlanPetMapping;
 import com.side.anitime.domain.user.User;
 import com.side.anitime.dto.PlanDTO;
 import com.side.anitime.dto.PlanDTO.CalendarViewRes;
 import com.side.anitime.repository.alarm.AlarmRepository;
+import com.side.anitime.repository.pet.PetRepository;
 import com.side.anitime.repository.plan.ColorRepository;
 import com.side.anitime.repository.plan.PlanCategoryRepository;
+import com.side.anitime.repository.plan.PlanPetMappingRepository;
 import com.side.anitime.repository.plan.PlanRepository;
 import com.side.anitime.repository.user.UserRepository;
 import com.side.anitime.util.DateUtil;
@@ -35,6 +40,8 @@ public class PlanService {
 	private final ColorRepository colorRepository;
 	private final AlarmRepository alarmRepository;
 	private final UserRepository userRepository;
+	private final PlanPetMappingRepository planPetMappingRepository;
+	private final PetRepository petRepository;
 
 	public void savePlan(com.side.anitime.dto.PlanDTO.SaveReq vo) {
 		// TODO userToken to user DTO
@@ -58,7 +65,19 @@ public class PlanService {
 				.contents(vo.getContents()).title(vo.getTitle()).startDate(planStartDate).endDate(planEndDate)
 				.color(colorDto).planCategory(planCategoryDto).alarm(alarmDto).user(userDto).build();
 
-		planRepository.save(planDto);
+		Plan savedPlan = planRepository.save(planDto);
+
+		List<PlanPetMapping> planPetMappingList = new ArrayList<PlanPetMapping>();
+		
+		for(Long petId : vo.getPetIds()) {
+			PlanPetMapping planPetMapping = new PlanPetMapping();
+			planPetMapping.setPlan(savedPlan);
+			planPetMapping.setPet(petRepository.findById(petId).get());
+			
+			planPetMappingList.add(planPetMapping);
+		}
+		planPetMappingRepository.saveAll(planPetMappingList);
+		
 	}
 
 	public List<PlanCategory> getPlanCategoryTypeList() {
