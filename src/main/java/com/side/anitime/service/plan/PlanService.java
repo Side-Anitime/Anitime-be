@@ -1,9 +1,11 @@
-package com.side.anitime.service;
+package com.side.anitime.service.plan;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -73,17 +75,15 @@ public class PlanService {
 		return alarmRepository.findAll();
 	}
 
-	public JsonArray getCalendarPlanByYearMonth(PlanDTO.CalendarViewReq vo) throws Exception {
+	public List<HashMap<String,Object>> getCalendarPlanByYearMonth(PlanDTO.CalendarViewReq vo) throws Exception {
 
-		JsonArray findPlanJsonArr = new JsonArray();
+		List<HashMap<String,Object>> findPlanMapList = new ArrayList<HashMap<String,Object>>();
 		
 		//요청 월의 마지막 날짜 정보 초기화
 		int monthLastDay = DateUtil.getLastDateByMonth(vo.getYear(), vo.getMonth());
 		
 		//시작 일 부터 마지막 일 까지 일정 조회
 		for (int dayIndex = 1; dayIndex <= monthLastDay; dayIndex++) {
-			
-			JsonObject findPlanByDateJsonObj = new JsonObject();
 			
 			//조회 기간 초기화
 			LocalDateTime startDate = DateUtil.getFormattedStartDate(vo.getYear(), vo.getMonth(), dayIndex);
@@ -93,27 +93,26 @@ public class PlanService {
 			List<Plan> findPlanList = planRepository.findByPlanBetween(startDate, endDate, vo.getUserToken());
 			
 			List<String> categoryNameList = new ArrayList<String>();
-			JsonArray colorHexList = new JsonArray();
+			List<PlanDTO.Color>colorHexList = new ArrayList<PlanDTO.Color>();
 			for (Plan findPlanDto : findPlanList) {
-				JsonObject colorJson = new JsonObject();
-				colorJson.addProperty("color", findPlanDto.getColor().getHex());
+				
+				PlanDTO.Color colorDto = new PlanDTO.Color(); 
+				colorDto.setColor(findPlanDto.getColor().getHex());
 				
 				categoryNameList.add(findPlanDto.getPlanCategory().getPlanCategoryName());
-				colorHexList.add(colorJson);
+				colorHexList.add(colorDto);
 			}
 			
 			PlanDTO.CalendarViewRes calendarViewResDto = new CalendarViewRes();
 			calendarViewResDto.setName(categoryNameList.toArray(new String[categoryNameList.size()]));
 			calendarViewResDto.setDots(colorHexList);
 			
-			//obj -> jsonObject
-			JsonObject calendarViewJsonObject = (JsonObject) new Gson().toJsonTree(calendarViewResDto);
-			
-			findPlanByDateJsonObj.add(DateUtil.getFormattedDate(vo.getYear(), vo.getMonth(), dayIndex), calendarViewJsonObject);
-			findPlanJsonArr.add(findPlanByDateJsonObj);
+			HashMap<String, Object> findPlanByDateMap = new HashMap<>();
+			findPlanByDateMap.put(DateUtil.getFormattedDate(vo.getYear(), vo.getMonth(), dayIndex), calendarViewResDto);
+			findPlanMapList.add(findPlanByDateMap);
 		}
 
-		return findPlanJsonArr;
+		return findPlanMapList;
 		
 	}
 

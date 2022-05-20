@@ -1,8 +1,8 @@
 package com.side.anitime.dto;
 
-import javax.validation.constraints.Positive;
+import java.util.List;
 
-import com.google.gson.JsonArray;
+import javax.validation.constraints.Positive;
 
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
@@ -56,7 +56,15 @@ public class PlanDTO {
 		
 		private String[] name;//일정 카테고리 명
 		
-		private JsonArray dots; //일정 색깔 정보 저장
+		private List<PlanDTO.Color> dots; //일정 색깔 정보 저장
+		
+	}
+	
+	@Getter
+	@Setter
+	@ToString
+	public static class Color{
+		private String color;
 		
 	}
 
