@@ -32,6 +32,8 @@ public class PlanDTO {
 		@Positive
 		private Long alarmId;
 		
+		private List<Long> petIds;
+		
 	}
 	
 	
