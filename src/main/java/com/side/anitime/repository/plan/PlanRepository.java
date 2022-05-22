@@ -22,6 +22,11 @@ public interface PlanRepository extends JpaRepository<Plan, Long> {
 			);
 	
 	
-	
+	@Query(value = "SELECT P.* FROM plan P" 
+			+ " LEFT OUTER JOIN user U ON P.user_id = U.user_id " 
+			+ " WHERE U.user_token=:user_token " 
+			+ " AND start_date >= NOW()"
+			+ " ORDER BY start_date desc LIMIT :limit", nativeQuery = true)
+	List<Plan> findByUserTokenLatestPlan(@Param("user_token") String userToken, @Param("limit") int limit);
 	
 }

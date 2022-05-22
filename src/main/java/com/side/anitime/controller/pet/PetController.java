@@ -11,6 +11,7 @@ import com.side.anitime.service.pet.PetService;
 import com.side.anitime.util.common.ApiCommResponse;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -22,6 +23,7 @@ public class PetController {
     private final PetService petService;
     
     @GetMapping("/list/{userToken}")
+    @ApiOperation(value = "사용자가 등록한 동물 조회", notes = "사용자가 등록한 동물 조회")
     public ResponseEntity<?> getPetListByUserToken(@RequestParam("userToken") String userToken) {
     	  return new ResponseEntity(
     			    ApiCommResponse.OK(petService.getPetListByUserToken(userToken))

@@ -14,6 +14,7 @@ import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.side.anitime.domain.common.BaseEntity;
 import com.side.anitime.domain.user.User;
@@ -55,6 +56,7 @@ public class Plan extends BaseEntity {
     
     @ManyToOne
     @JoinColumn(name = "USER_ID")
+    @JsonBackReference
     private User user;
     
     @ManyToOne

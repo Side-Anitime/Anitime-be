@@ -76,20 +76,8 @@ public class PlanService {
 		
 	}
 
-	public List<PlanCategory> getPlanCategoryTypeList() {
-		return planCategoryRepository.findAll();
-	}
-
-	public List<Color> getColorList() {
-		return colorRepository.findAll();
-	}
-
-	public List<Alarm> getAlarmTypeList() {
-		return alarmRepository.findAll();
-	}
-
 	public List<HashMap<String,Object>> getCalendarPlanByYearMonth(PlanDTO.CalendarViewReq vo) throws Exception {
-
+	
 		List<HashMap<String,Object>> findPlanMapList = new ArrayList<HashMap<String,Object>>();
 		
 		//요청 월의 마지막 날짜 정보 초기화
@@ -101,7 +89,7 @@ public class PlanService {
 			//조회 기간 초기화
 			LocalDateTime startDate = DateUtil.getFormattedStartDate(vo.getYear(), vo.getMonth(), dayIndex);
 			LocalDateTime endDate =  DateUtil.getFormattedEndDate(vo.getYear(), vo.getMonth(), dayIndex);
-
+	
 			//해당 기간 일정 조회
 			List<Plan> findPlanList = planRepository.findByPlanBetween(startDate, endDate, vo.getUserToken());
 			
@@ -124,9 +112,25 @@ public class PlanService {
 			findPlanByDateMap.put(DateUtil.getFormattedDate(vo.getYear(), vo.getMonth(), dayIndex), calendarViewResDto);
 			findPlanMapList.add(findPlanByDateMap);
 		}
-
+	
 		return findPlanMapList;
 		
+	}
+
+	public List<PlanCategory> getPlanCategoryTypeList() {
+		return planCategoryRepository.findAll();
+	}
+
+	public List<Color> getColorList() {
+		return colorRepository.findAll();
+	}
+
+	public List<Alarm> getAlarmTypeList() {
+		return alarmRepository.findAll();
+	}
+	
+	public List<Plan> getLatestPlanByUserTokn(String userToken, int limit){
+		return planRepository.findByUserTokenLatestPlan(userToken, limit);
 	}
 
 }
