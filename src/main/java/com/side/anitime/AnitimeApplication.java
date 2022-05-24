@@ -8,10 +8,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication
 @EnableJpaAuditing
-public class AnitimeApplication extends SpringBootServletInitializer 
-{
+public class AnitimeApplication extends SpringBootServletInitializer {
 	
-
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
 		return application.sources(AnitimeApplication.class);
@@ -20,6 +18,5 @@ public class AnitimeApplication extends SpringBootServletInitializer
 	public static void main(String[] args) {
 		SpringApplication.run(AnitimeApplication.class, args);
 	}
-
 
 }
