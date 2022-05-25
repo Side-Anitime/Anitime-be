@@ -14,4 +14,5 @@ public interface PetRepository extends JpaRepository<Pet, Long> {
 						  + " WHERE U.user_token=:user_token", nativeQuery = true)
 	List<Pet> findPetListByUserToken(@Param("user_token") String userToken);
 	
+	
 }
