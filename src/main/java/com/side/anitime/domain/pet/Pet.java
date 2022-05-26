@@ -22,6 +22,7 @@ import com.side.anitime.codeconst.AnimalType;
 import com.side.anitime.codeconst.Gender;
 import com.side.anitime.codeconst.YesNo;
 import com.side.anitime.domain.common.BaseEntity;
+import com.side.anitime.domain.plan.PlanCategory;
 import com.side.anitime.domain.user.User;
 
 import lombok.AllArgsConstructor;
@@ -50,8 +51,9 @@ public class Pet extends BaseEntity{
     @JsonBackReference
     private User user;
 
-    @Column(name = "KIND", length = 20)
-    private String kind;
+    @ManyToOne
+    @JoinColumn(name = "PET_KIND_ID")
+    private PetKind petKind;
 
     @Column(name = "NAME", length = 20)
     private String name;
