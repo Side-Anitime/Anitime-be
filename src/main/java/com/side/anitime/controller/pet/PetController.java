@@ -7,10 +7,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.side.anitime.codeconst.AnimalType;
+import com.side.anitime.domain.pet.PetKind;
+import com.side.anitime.dto.PetDTO;
 import com.side.anitime.service.pet.PetService;
 import com.side.anitime.util.common.ApiCommResponse;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -19,14 +25,24 @@ import lombok.RequiredArgsConstructor;
 @Api(value = "반려동물 API", tags = "반려동물 API")
 public class PetController {
 
-    private final PetService petService;
-    
-    @GetMapping("/list/{userToken}")
-    public ResponseEntity<?> getPetListByUserToken(@RequestParam("userToken") String userToken) {
-    	  return new ResponseEntity(
-    			    ApiCommResponse.OK(petService.getPetListByUserToken(userToken))
-    			  , HttpStatus.OK);
-    }
+	private final PetService petService;
+
+	@ApiOperation(value = "사용자가 등록한 반려동물 조회")
+	@GetMapping("/list/{userToken}")
+	public ResponseEntity<?> getPetListByUserToken(@RequestParam("userToken") String userToken) {
+		return new ResponseEntity(ApiCommResponse.OK(petService.getPetListByUserToken(userToken)), HttpStatus.OK);
+	}
+
+	@ApiOperation(value = "반려동물 종 검색")
+	@GetMapping("/search/kind/{type}/{kindName}")
+	public ResponseEntity<?> registerPet(
+			  @RequestParam("type") AnimalType type
+			, @RequestParam("kindName") String kindName) {
+		
+		return new ResponseEntity(ApiCommResponse.OK(
+				  petService.getPetKindByPetNameAndType(new PetDTO.KindSearch(kindName, type)))
+				, HttpStatus.OK);
+	}
 
 //    @ApiOperation(value = "반려동물 조회")
 //    @ApiResponses(value = {
