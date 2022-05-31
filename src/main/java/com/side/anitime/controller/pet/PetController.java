@@ -3,20 +3,20 @@ package com.side.anitime.controller.pet;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.side.anitime.codeconst.AnimalType;
-import com.side.anitime.domain.pet.PetKind;
 import com.side.anitime.dto.PetDTO;
 import com.side.anitime.service.pet.PetService;
 import com.side.anitime.util.common.ApiCommResponse;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -42,6 +42,18 @@ public class PetController {
 		return new ResponseEntity(ApiCommResponse.OK(
 				  petService.getPetKindByPetNameAndType(new PetDTO.KindSearch(kindName, type)))
 				, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "사용자 반려동물 삭제")
+	@RequestMapping(value = "/delete/{userToken}/{petId}", method = RequestMethod.DELETE)
+	public ResponseEntity<?> deleteUserPet(
+		  @ApiParam(value = "userToken", required = true) @PathVariable("userToken") String userToken
+		, @ApiParam(value = "petId", required = true) @PathVariable("petId") Long petId
+			){
+    	
+		 petService.deleteByUserTokenAndPetId(userToken, petId);
+    	 return new ResponseEntity(ApiCommResponse.OK(), HttpStatus.OK);
+    	 
 	}
 
 //    @ApiOperation(value = "반려동물 조회")
