@@ -13,6 +13,7 @@ import com.side.anitime.codeconst.AnimalType;
 import com.side.anitime.dto.PetDTO;
 import com.side.anitime.service.pet.PetService;
 import com.side.anitime.util.common.ApiCommResponse;
+import com.side.anitime.util.common.ResultCode;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -51,65 +52,13 @@ public class PetController {
 		, @ApiParam(value = "petId", required = true) @PathVariable("petId") Long petId
 			){
     	
-		 petService.deleteByUserTokenAndPetId(userToken, petId);
-    	 return new ResponseEntity(ApiCommResponse.OK(), HttpStatus.OK);
+		try {
+			 petService.deleteByUserTokenAndPetId(userToken, petId);
+	    	 return new ResponseEntity(ApiCommResponse.OK(), HttpStatus.OK);
+		}catch(Exception e) {
+			 return new ResponseEntity(ApiCommResponse.Error(ResultCode.ERROR), ResultCode.ERROR.getStatus());
+		}
     	 
 	}
 
-//    @ApiOperation(value = "반려동물 조회")
-//    @ApiResponses(value = {
-//            @ApiResponse(code = 201, message = "Successfully register pet", response = ResponsePetDTO.class
-//            )
-//    })
-//    @PostMapping
-//    public ResponseEntity<?> registerPet(@RequestBody RequestPetDTO requestDto) {
-//        return ResponseEntity.ok(null);
-//    }
-
-//    @ApiOperation(value = "반려동물 조회")
-//    @ApiResponses(value = {
-//            @ApiResponse(code = 200, message = "Successfully get pet list", response = ResponsePetDTO.class
-//            )
-//    })
-//  
-//
-//    @ApiOperation(value = "반려동물 상세 조회")
-//    @ApiResponses(value = {
-//            @ApiResponse(code = 200, message = "Successfully get detail pet", response = ResponsePetDTO.class
-//            )
-//    })
-//    @GetMapping("{userId}/{petId}")
-//    public ResponseEntity<?> getDetailPet(@PathVariable Long userId, @PathVariable Long petId) {
-//        return ResponseEntity.ok(null);
-//    }
-//
-//    @ApiOperation(value = "반려동물 품종 조회")
-//    @ApiResponses(value = {
-//            @ApiResponse(code = 200, message = "Successfully get pet kind", response = ResponsePetDTO.class
-//            )
-//    })
-//    @GetMapping("kind/{keyword}")
-//    public ResponseEntity<?> getDetailPet(@PathVariable String keyword) {
-//        return ResponseEntity.ok(null);
-//    }
-//
-//    @ApiOperation(value = "반려동물 정보 수정")
-//    @ApiResponses(value = {
-//            @ApiResponse(code = 200, message = "Successfully update pet information"
-//            )
-//    })
-//    @PutMapping
-//    public ResponseEntity<?> updatePet(@PathVariable String keyword) {
-//        return ResponseEntity.ok(null);
-//    }
-//
-//    @ApiOperation(value = "반려동물 삭제")
-//    @ApiResponses(value = {
-//            @ApiResponse(code = 204, message = "Successfully delete pet"
-//            )
-//    })
-//    @DeleteMapping("delete/{userId}/{petId}")
-//    public ResponseEntity<?> deletePet(@PathVariable Long userId, @PathVariable Long petId) {
-//        return ResponseEntity.noContent().build();
-//    }
 }
