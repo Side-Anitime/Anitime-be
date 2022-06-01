@@ -87,6 +87,14 @@ public class PlanService {
 	public List<Alarm> getAlarmTypeList() {
 		return alarmRepository.findAll();
 	}
+	
+	public List<Plan> getFindPlansByDate(String year, String month, String day, String userToken){
+		
+		LocalDateTime startDate = DateUtil.getFormattedStartDate(year, month, day);
+		LocalDateTime endDate =  DateUtil.getFormattedEndDate(year, month, day);
+		return planRepository.findPlanByDate(startDate, endDate, userToken);
+		
+	}
 
 	public List<HashMap<String,Object>> getCalendarPlanByYearMonth(PlanDTO.CalendarViewReq vo) throws Exception {
 
@@ -103,7 +111,7 @@ public class PlanService {
 			LocalDateTime endDate =  DateUtil.getFormattedEndDate(vo.getYear(), vo.getMonth(), dayIndex);
 
 			//해당 기간 일정 조회
-			List<Plan> findPlanList = planRepository.findByPlanBetween(startDate, endDate, vo.getUserToken());
+			List<Plan> findPlanList = planRepository.findPlanByDate(startDate, endDate, vo.getUserToken());
 			
 			List<String> categoryNameList = new ArrayList<String>();
 			List<PlanDTO.Color>colorHexList = new ArrayList<PlanDTO.Color>();
