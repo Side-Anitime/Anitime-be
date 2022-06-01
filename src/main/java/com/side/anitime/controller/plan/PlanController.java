@@ -33,6 +33,7 @@ public class PlanController {
 
 	private final PlanService planService;
 
+	@ApiOperation(value = "일정 등록", notes="일정을 등록합니다. 반려 동물 마다 일정 등록 가능합니다.")
 	@PostMapping("/save")
 	public ResponseEntity<?> savePlan(@Valid @RequestBody PlanDTO.SaveReq vo) {
 		try {
@@ -44,6 +45,7 @@ public class PlanController {
 		return new ResponseEntity(ApiCommResponse.OK(), HttpStatus.OK);
 	}
 
+	@ApiOperation(value = "달에 따라서 일정 목록 조회", notes="앱에서 일정 탭을 클릭하여 달력을 확인할 경우에 사용합니다.")
 	@GetMapping("/calendar-view/{year}/{month}/{userToken}")
 	public ResponseEntity<?> getCalendarViewList(@RequestParam("year") String year, @RequestParam("month") String month,
 			@RequestParam("userToken") String userToken) throws Exception {
@@ -61,7 +63,7 @@ public class PlanController {
 
 	}
 	
-	@ApiOperation(value = "해당 날짜에 해당하는 일정 목록 조회")
+	@ApiOperation(value = "해당 날짜에 해당하는 일정 목록 조회", notes="앱에서 특정 날짜를 클릭할 경우 사용합니다.")
 	@GetMapping("/one-day/{year}/{month}/{day}/{userToken}")
 	public ResponseEntity<?> getFindOnePlan(
 			  @RequestParam("year") String year
@@ -81,16 +83,19 @@ public class PlanController {
 
 	}
 
+	@ApiOperation(value = "일정 카테고리 목록을 조회", notes="일정 카테고리 목록을 조회합니다.")
 	@GetMapping("/category/types")
 	public ResponseEntity<?> getPlanCategoryType() {
 		return new ResponseEntity(ApiCommResponse.OK(planService.getPlanCategoryTypeList()), HttpStatus.OK);
 	}
 
+	@ApiOperation(value = "일정 컬러 조회", notes="일정 컬러 목록을 조회합니다.")
 	@GetMapping("/colors")
 	public ResponseEntity<?> getPlanColors() {
 		return new ResponseEntity(ApiCommResponse.OK(planService.getColorList()), HttpStatus.OK);
 	}
 
+	@ApiOperation(value = "일정 알람 방식 목록 조회", notes="일정 알람 방식 목록을 조회합니다.")
 	@GetMapping("/alarm/types")
 	public ResponseEntity<?> getAlarmTypes() {
 		return new ResponseEntity(ApiCommResponse.OK(planService.getAlarmTypeList()), HttpStatus.OK);

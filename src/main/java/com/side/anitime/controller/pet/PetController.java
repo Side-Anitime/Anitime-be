@@ -28,13 +28,13 @@ public class PetController {
 
 	private final PetService petService;
 
-	@ApiOperation(value = "사용자가 등록한 반려동물 조회")
+	@ApiOperation(value = "사용자가 등록한 반려동물 조회", notes="사용자가 등록한 반려동물 목록을 조회합니다.")
 	@GetMapping("/list/{userToken}")
 	public ResponseEntity<?> getPetListByUserToken(@RequestParam("userToken") String userToken) {
 		return new ResponseEntity(ApiCommResponse.OK(petService.getPetListByUserToken(userToken)), HttpStatus.OK);
 	}
 
-	@ApiOperation(value = "반려동물 종 검색")
+	@ApiOperation(value = "반려동물 종 검색", notes="사용자의 반려동물은 검색합니다.")
 	@GetMapping("/search/kind/{type}/{kindName}")
 	public ResponseEntity<?> registerPet(
 			  @RequestParam("type") AnimalType type
@@ -45,7 +45,7 @@ public class PetController {
 				, HttpStatus.OK);
 	}
 	
-	@ApiOperation(value = "사용자 반려동물 삭제")
+	@ApiOperation(value = "사용자 반려동물 삭제", notes="사용자의 반려동물은 삭제합니다.")
 	@RequestMapping(value = "/delete/{userToken}/{petId}", method = RequestMethod.DELETE)
 	public ResponseEntity<?> deleteUserPet(
 		  @ApiParam(value = "userToken", required = true) @PathVariable("userToken") String userToken
