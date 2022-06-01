@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.side.anitime.dto.PlanDTO;
+import com.side.anitime.dto.PlanDTO.CalendarViewReq;
 import com.side.anitime.service.plan.PlanService;
 import com.side.anitime.util.common.ApiCommResponse;
 
@@ -48,7 +49,7 @@ public class PlanController {
 		List<HashMap<String,Object>> result = new ArrayList<>();
 
 		try {
-			PlanDTO.CalendarViewReq vo = new PlanDTO.CalendarViewReq(year, month, userToken);
+			CalendarViewReq vo = new CalendarViewReq(year, month, userToken);
 			result = planService.getCalendarPlanByYearMonth(vo);
 		} catch (Exception e) {
 			e.printStackTrace();
