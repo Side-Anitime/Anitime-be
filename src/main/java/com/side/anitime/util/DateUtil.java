@@ -12,7 +12,7 @@ public class DateUtil {
 		return cal.getActualMaximum(Calendar.DAY_OF_MONTH); // 해당 달의 마지막 일자
 	}
 
-	public static String getFormattedDate(String year, String month,int day) {
+	public static String getFormattedDate(String year, String month, int day) {
 		return  year + "-" + month + "-" +String.format("%02d", day);
 	}
 
@@ -28,6 +28,22 @@ public class DateUtil {
 	public static LocalDateTime getFormattedEndDate(String year, String month, int day) {
 		String dayFormat = String.format("%02d", day);
 		String date = year + "-" + month + "-" + dayFormat;
+		String dateTimeStr = date + " 23:59:59.999";
+
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+		return LocalDateTime.parse(dateTimeStr, formatter);
+	}
+	
+	public static LocalDateTime getFormattedStartDate(String year, String month, String day) {
+		String date = year + "-" + month + "-" + day;
+		String dateTimeStr = date + " 00:00:00.000";
+
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+		return LocalDateTime.parse(dateTimeStr, formatter);
+	}
+	
+	public static LocalDateTime getFormattedEndDate(String year, String month, String day) {
+		String date = year + "-" + month + "-" + day;
 		String dateTimeStr = date + " 23:59:59.999";
 
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
