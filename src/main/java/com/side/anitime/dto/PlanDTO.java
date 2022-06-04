@@ -14,7 +14,7 @@ public class PlanDTO {
 
 	@Getter
 	@Setter
-	public static class SaveReq {
+	public static class SavePlanReq {
 		
 		@ApiParam(name="userToken", value = "testtoken")
 		private String userToken;

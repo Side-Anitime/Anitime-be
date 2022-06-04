@@ -61,6 +61,10 @@ public class Pet extends BaseEntity{
     @Column(name = "BIRTHDAY")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate birthday;
+    
+    @Column(name = "FIRST_MEET_DATE")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate firstMeetDate;
 
     @Column(name = "PERSONALITY", length = 100)
     private String personality;
@@ -79,9 +83,12 @@ public class Pet extends BaseEntity{
     @Column(name = "NEUTER_YN", columnDefinition = "ENUM('Y', 'N') DEFAULT 'N'")
     @Enumerated(EnumType.STRING)
     private YesNo neuterYn;
-
+    
     @Column(name = "REPRESENT_YN", columnDefinition = "ENUM('Y', 'N') DEFAULT 'N'")
     @Enumerated(EnumType.STRING)
     private YesNo representYn;
+    
+    @Column(name = "SHORT_INTRODUCE", length = 500)
+    private String shortIntroduce;
     
 }

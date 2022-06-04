@@ -16,7 +16,7 @@ import com.side.anitime.domain.plan.PlanPetMapping;
 import com.side.anitime.domain.user.User;
 import com.side.anitime.dto.PlanDTO;
 import com.side.anitime.dto.PlanDTO.CalendarViewRes;
-import com.side.anitime.dto.PlanDTO.SaveReq;
+import com.side.anitime.dto.PlanDTO.SavePlanReq;
 import com.side.anitime.repository.alarm.AlarmRepository;
 import com.side.anitime.repository.pet.PetRepository;
 import com.side.anitime.repository.plan.ColorRepository;
@@ -40,7 +40,7 @@ public class PlanService {
 	private final PlanPetMappingRepository planPetMappingRepository;
 	private final PetRepository petRepository;
 
-	public void savePlan(SaveReq vo) {
+	public void savePlan(SavePlanReq vo) {
 		// TODO userToken to user DTO
 
 		// 일정일 시작일 종료일 초기화

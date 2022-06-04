@@ -1,9 +1,13 @@
 package com.side.anitime.controller.pet;
 
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +20,8 @@ import com.side.anitime.util.common.ApiCommResponse;
 import com.side.anitime.util.common.ResultCode;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +33,19 @@ import lombok.RequiredArgsConstructor;
 public class PetController {
 
 	private final PetService petService;
+	
+	@ApiOperation(value = "반려동물 등록", notes="반려동물을 등록합니다.")
+	@PostMapping("/save")
+	public ResponseEntity<?> savePet(@Valid @RequestBody PetDTO.SavePetReq saveReq) {
+		try {
+			petService.savePetByUser(saveReq);
+			return new ResponseEntity(ApiCommResponse.OK(), HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			 return new ResponseEntity(ApiCommResponse.Error(ResultCode.ERROR), ResultCode.ERROR.getStatus());
+		}
+		
+	}
 
 	@ApiOperation(value = "사용자가 등록한 반려동물 조회", notes="사용자가 등록한 반려동물 목록을 조회합니다.")
 	@GetMapping("/list/{userToken}")
@@ -56,6 +75,7 @@ public class PetController {
 			 petService.deleteByUserTokenAndPetId(userToken, petId);
 	    	 return new ResponseEntity(ApiCommResponse.OK(), HttpStatus.OK);
 		}catch(Exception e) {
+			e.printStackTrace();
 			 return new ResponseEntity(ApiCommResponse.Error(ResultCode.ERROR), ResultCode.ERROR.getStatus());
 		}
     	 
