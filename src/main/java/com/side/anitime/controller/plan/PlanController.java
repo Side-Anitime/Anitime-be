@@ -35,7 +35,7 @@ public class PlanController {
 
 	@ApiOperation(value = "일정 등록", notes="일정을 등록합니다. 반려 동물 마다 일정 등록 가능합니다.")
 	@PostMapping("/save")
-	public ResponseEntity<?> savePlan(@Valid @RequestBody PlanDTO.SaveReq vo) {
+	public ResponseEntity<?> savePlan(@Valid @RequestBody PlanDTO.SavePlanReq vo) {
 		try {
 			planService.savePlan(vo);
 		} catch (Exception e) {
