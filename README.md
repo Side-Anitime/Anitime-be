@@ -14,11 +14,11 @@
 
 
 ### window
- - ssh -i C:/Dev/Anitime/petpwd.pem ec2-user@ec2-3-34-178-13.ap-northeast-2.compute.amazonaws.com
+ - ssh -i C:/Dev/Anitime/petpwd.pem ec2-3-34-198-47.ap-northeast-2.compute.amazonaws.com
  - 파일 질라 이용해서 pem파일 이용해서 접속
 
 ### mac
- - ssh -i /Users/kim-youngmin/Documents/kym/util/aws-keypair/petpwd.pem ec2-user@ec2-3-34-178-13.ap-northeast-2.compute.amazonaws.com
+ - ssh -i /Users/kim-youngmin/Documents/kym/util/aws-keypair/petpwd.pem ec2-3-34-198-47.ap-northeast-2.compute.amazonaws.com
  - mac sftp forklift 앱 사용
 
 
