@@ -10,9 +10,7 @@
 ### 개발정보
 
 
-###ssh 접속 명령어
-
-
+### ssh 접속 명령어(win, mac 구분)
 ### window
  - ssh -i C:/Dev/Anitime/petpwd.pem ec2-3-34-198-47.ap-northeast-2.compute.amazonaws.com
  - 파일 질라 이용해서 pem파일 이용해서 접속
