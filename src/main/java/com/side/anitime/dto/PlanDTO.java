@@ -17,22 +17,49 @@ public class PlanDTO {
 	public static class SavePlanReq {
 		
 		@ApiParam(name="userToken", value = "testtoken")
-		private String userToken;
-		private String title;
-		private String contents;
-		private String startDate;
-		private String endDate;
+		 String userToken;
+		 String title;
+		 String contents;
+		 String startDate;
+		 String endDate;
 
 		@Positive
-		private Long colorId;
+		 Long colorId;
 		
 		@Positive
-		private Long planCategoryId;
+		 Long planCategoryId;
 		
 		@Positive
-		private Long alarmId;
+		 Long alarmId;
 		
-		private List<Long> petIds;
+		 List<Long> petIds;
+		
+	}
+	
+	@Getter
+	@Setter
+	public static class ModifyPlanReq {
+		
+		@ApiParam(name="userToken", value = "testtoken")
+		 String userToken;
+		@Positive
+		Long planId;
+		
+		 String title;
+		 String contents;
+		 String startDate;
+		 String endDate;
+
+		@Positive
+		 Long colorId;
+		
+		@Positive
+		 Long planCategoryId;
+		
+		@Positive
+		 Long alarmId;
+		
+		 List<Long> petIds;
 		
 	}
 	
@@ -43,11 +70,11 @@ public class PlanDTO {
 	@ToString
 	public static class CalendarViewReq{
 		
-		private String year;
+		 String year;
 		
-		private String month;
+		 String month;
 		
-		private String userToken;
+		 String userToken;
 		
 	}
 	
@@ -56,9 +83,9 @@ public class PlanDTO {
 	@ToString
 	public static class CalendarViewRes{
 		
-		private String[] name;//일정 카테고리 명
+		 String[] name;//일정 카테고리 명
 		
-		private List<PlanDTO.Color> dots; //일정 색깔 정보 저장
+		 List<PlanDTO.Color> dots; //일정 색깔 정보 저장
 		
 	}
 	
@@ -66,8 +93,7 @@ public class PlanDTO {
 	@Setter
 	@ToString
 	public static class Color{
-		private String color;
-		
+		 String color;
 	}
 
 }
