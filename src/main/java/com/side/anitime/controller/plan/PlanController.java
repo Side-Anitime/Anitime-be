@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.side.anitime.domain.plan.Plan;
 import com.side.anitime.dto.PlanDTO;
 import com.side.anitime.dto.PlanDTO.CalendarViewReq;
+import com.side.anitime.dto.PlanDTO.ModifyPlanReq;
 import com.side.anitime.service.plan.PlanService;
 import com.side.anitime.util.common.ApiCommResponse;
 import com.side.anitime.util.common.ResultCode;
@@ -49,10 +50,10 @@ public class PlanController {
 	
 	@ApiOperation(httpMethod = "PUT", value = "일정 수정", notes="사용자가 등록한 일정을 수정합니다.")
 	@RequestMapping(value = "/modify", method = RequestMethod.PUT)
-	public ResponseEntity<?> modifyUserPlan(@Valid @RequestBody PlanDTO.ModifyPlanReq vo){
+	public ResponseEntity<?> modifyUserPlan(@Valid @RequestBody ModifyPlanReq vo){
     	
 		try {
-			//TODO service logic
+			 planService.updatePlanByUserId(vo);
 	    	 return new ResponseEntity(ApiCommResponse.OK(), HttpStatus.OK);
 		}catch(Exception e) {
 			e.printStackTrace();

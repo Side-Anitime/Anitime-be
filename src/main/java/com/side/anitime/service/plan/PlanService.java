@@ -16,6 +16,7 @@ import com.side.anitime.domain.plan.PlanPetMapping;
 import com.side.anitime.domain.user.User;
 import com.side.anitime.dto.PlanDTO;
 import com.side.anitime.dto.PlanDTO.CalendarViewRes;
+import com.side.anitime.dto.PlanDTO.ModifyPlanReq;
 import com.side.anitime.dto.PlanDTO.SavePlanReq;
 import com.side.anitime.repository.alarm.AlarmRepository;
 import com.side.anitime.repository.pet.PetRepository;
@@ -135,6 +136,32 @@ public class PlanService {
 		}
 
 		return findPlanMapList;
+		
+	}
+	
+	public void updatePlanByUserId(ModifyPlanReq vo) {
+		
+		// 일정일 시작일 종료일 초기화
+		vo.setStartDate(vo.getStartDate() + ":00.000");
+		vo.setEndDate(vo.getEndDate() + ":59.999");
+	
+		// String to LocalDateTime
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+		LocalDateTime planStartDate = LocalDateTime.parse(vo.getStartDate(), formatter);
+		LocalDateTime planEndDate = LocalDateTime.parse(vo.getEndDate(), formatter);
+		
+		Long userId = userRepository.findByUserToken(vo.getUserToken()).getUserId();
+		planRepository.updatePlanByUserId(vo.getContents()
+														   , vo.getTitle()
+														   , planStartDate
+														   , planEndDate
+														   , vo.getColorId()
+														   , vo.getPlanCategoryId()
+														   , vo.getAlarmId()
+														   , userId
+														   , vo.getPlanId());
+		
+		//TODO plan pet mapping 삭제 -> 업데이트 정보로 insert
 		
 	}
 
