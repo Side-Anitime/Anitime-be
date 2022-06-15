@@ -34,7 +34,7 @@ public interface PlanRepository extends JpaRepository<Plan, Long> {
     		+ ", P.end_date = :endDate"
     		+ ", P.color_id = :colorId "
     		+ ", P.plan_category_id = :planCategoryId"
-    		+ "WHERE P.user_id = :userId AND P.plan_id = :planId", nativeQuery = true)
+    		+ " WHERE P.user_id = :userId AND P.plan_id = :planId", nativeQuery = true)
     void updatePlanByUserId(@Param("contents") String contents
     		, @Param("title") String title
     		, @Param("startDate") LocalDateTime startDate
@@ -44,5 +44,6 @@ public interface PlanRepository extends JpaRepository<Plan, Long> {
     		, @Param("alarmId") Long alarmId
     		, @Param("userId") Long userId
     		, @Param("planId") Long planId);
+	
 	
 }

@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.side.anitime.domain.pet.Pet;
 import com.side.anitime.domain.plan.Alarm;
 import com.side.anitime.domain.plan.Color;
 import com.side.anitime.domain.plan.Plan;
@@ -141,7 +142,7 @@ public class PlanService {
 	
 	public void updatePlanByUserId(ModifyPlanReq vo) {
 		
-		// 일정일 시작일 종료일 초기화
+		// 시작일 종료일 초기화
 		vo.setStartDate(vo.getStartDate() + ":00.000");
 		vo.setEndDate(vo.getEndDate() + ":59.999");
 	
@@ -161,7 +162,26 @@ public class PlanService {
 														   , userId
 														   , vo.getPlanId());
 		
-		//TODO plan pet mapping 삭제 -> 업데이트 정보로 insert
+		//해당 일정에 할당된 애완동물 정보 초기화 -> 수정
+		Plan planVO = new Plan();
+		planVO.setPlanId(vo.getPlanId());
+		
+		planPetMappingRepository.deleteByPlan(planVO);
+		
+		List<PlanPetMapping> planPetMappingList = new ArrayList<>();
+		for(long petId : vo.getPetIds()) {
+			PlanPetMapping planPetMapping = new PlanPetMapping();
+		
+			Pet petVO = new Pet();
+			petVO.setPetId(petId);
+			planPetMapping.setPet(petVO);
+			planPetMapping.setPlan(planVO);
+			
+			planPetMappingList.add(planPetMapping);
+			
+		}
+		
+		planPetMappingRepository.saveAll(planPetMappingList);
 		
 	}
 
