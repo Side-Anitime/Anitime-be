@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.side.anitime.domain.pet.Pet;
 import com.side.anitime.domain.plan.Alarm;
 import com.side.anitime.domain.plan.Color;
 import com.side.anitime.domain.plan.Plan;
@@ -16,6 +17,7 @@ import com.side.anitime.domain.plan.PlanPetMapping;
 import com.side.anitime.domain.user.User;
 import com.side.anitime.dto.PlanDTO;
 import com.side.anitime.dto.PlanDTO.CalendarViewRes;
+import com.side.anitime.dto.PlanDTO.ModifyPlanReq;
 import com.side.anitime.dto.PlanDTO.SavePlanReq;
 import com.side.anitime.repository.alarm.AlarmRepository;
 import com.side.anitime.repository.pet.PetRepository;
@@ -135,6 +137,51 @@ public class PlanService {
 		}
 
 		return findPlanMapList;
+		
+	}
+	
+	public void updatePlanByUserId(ModifyPlanReq vo) {
+		
+		// 시작일 종료일 초기화
+		vo.setStartDate(vo.getStartDate() + ":00.000");
+		vo.setEndDate(vo.getEndDate() + ":59.999");
+	
+		// String to LocalDateTime
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+		LocalDateTime planStartDate = LocalDateTime.parse(vo.getStartDate(), formatter);
+		LocalDateTime planEndDate = LocalDateTime.parse(vo.getEndDate(), formatter);
+		
+		Long userId = userRepository.findByUserToken(vo.getUserToken()).getUserId();
+		planRepository.updatePlanByUserId(vo.getContents()
+														   , vo.getTitle()
+														   , planStartDate
+														   , planEndDate
+														   , vo.getColorId()
+														   , vo.getPlanCategoryId()
+														   , vo.getAlarmId()
+														   , userId
+														   , vo.getPlanId());
+		
+		//해당 일정에 할당된 애완동물 정보 초기화 -> 수정
+		Plan planVO = new Plan();
+		planVO.setPlanId(vo.getPlanId());
+		
+		planPetMappingRepository.deleteByPlan(planVO);
+		
+		List<PlanPetMapping> planPetMappingList = new ArrayList<>();
+		for(long petId : vo.getPetIds()) {
+			PlanPetMapping planPetMapping = new PlanPetMapping();
+		
+			Pet petVO = new Pet();
+			petVO.setPetId(petId);
+			planPetMapping.setPet(petVO);
+			planPetMapping.setPlan(planVO);
+			
+			planPetMappingList.add(planPetMapping);
+			
+		}
+		
+		planPetMappingRepository.saveAll(planPetMappingList);
 		
 	}
 

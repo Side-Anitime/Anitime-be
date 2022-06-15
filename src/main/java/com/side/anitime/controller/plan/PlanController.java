@@ -12,14 +12,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.side.anitime.domain.plan.Plan;
 import com.side.anitime.dto.PlanDTO;
 import com.side.anitime.dto.PlanDTO.CalendarViewReq;
+import com.side.anitime.dto.PlanDTO.ModifyPlanReq;
 import com.side.anitime.service.plan.PlanService;
 import com.side.anitime.util.common.ApiCommResponse;
+import com.side.anitime.util.common.ResultCode;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -43,6 +46,20 @@ public class PlanController {
 		}
 		
 		return new ResponseEntity(ApiCommResponse.OK(), HttpStatus.OK);
+	}
+	
+	@ApiOperation(httpMethod = "PUT", value = "일정 수정", notes="사용자가 등록한 일정을 수정합니다.")
+	@RequestMapping(value = "/modify", method = RequestMethod.PUT)
+	public ResponseEntity<?> modifyUserPlan(@Valid @RequestBody ModifyPlanReq vo){
+    	
+		try {
+			 planService.updatePlanByUserId(vo);
+	    	 return new ResponseEntity(ApiCommResponse.OK(), HttpStatus.OK);
+		}catch(Exception e) {
+			e.printStackTrace();
+			 return new ResponseEntity(ApiCommResponse.Error(ResultCode.ERROR), ResultCode.ERROR.getStatus());
+		}
+    	 
 	}
 
 	@ApiOperation(value = "달에 따라서 일정 목록 조회", notes="앱에서 일정 탭을 클릭하여 달력을 확인할 경우에 사용합니다.")
