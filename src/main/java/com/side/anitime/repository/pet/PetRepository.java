@@ -1,5 +1,6 @@
 package com.side.anitime.repository.pet;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -22,5 +23,32 @@ public interface PetRepository extends JpaRepository<Pet, Long> {
 	@Query(value = "DELETE FROM pet WHERE user_id=:user_id AND pet_id =:pet_id", nativeQuery = true)
 	void deleteByUserTokenAndPetId(@Param("user_id") Long userId
 													, @Param("pet_id") Long petId);
+	
+	@Modifying
+    @Query(value ="UPDATE pet P SET P.update_date = NOW()"
+    		+ ", P.birthday = :birthday"
+    		+ ", P.gender = :gender"
+    		+ ", P.name = :name"
+    		+ ", P.neuter_yn = :neuterYn"
+    		+ ", P.personality = :personality"
+    		+ ", P.represent_yn = :representYn "
+    		+ ", P.pet_kind_id = :petKindId"
+    		+ ", P.short_introduce = :shortIntroduce"
+    		+ ", P.first_meet_date = :firstMeetDate"
+    		+ "  WHERE P.pet_id = :petId", nativeQuery = true)
+    void updatePetByPetId(
+    		  @Param("birthday") LocalDateTime birthday
+    		, @Param("gender") String gender
+    		, @Param("name") String name
+    		, @Param("neuter_yn") String neuterYn
+    		, @Param("personality") String personality
+    		, @Param("representYn") String representYn
+    		, @Param("petKindId") Long petKindId
+    		, @Param("shortIntroduce") String shortIntroduce
+    		, @Param("firstMeetDate") LocalDateTime firstMeetDate
+    		, @Param("petId") Long petId
+    		);
+	
+	
 	
 }

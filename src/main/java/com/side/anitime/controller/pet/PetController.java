@@ -15,13 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.side.anitime.codeconst.AnimalType;
 import com.side.anitime.dto.PetDTO;
+import com.side.anitime.dto.PetDTO.ModifyPetReq;
 import com.side.anitime.service.pet.PetService;
 import com.side.anitime.util.common.ApiCommResponse;
 import com.side.anitime.util.common.ResultCode;
 
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
@@ -73,6 +72,19 @@ public class PetController {
     	
 		try {
 			 petService.deleteByUserTokenAndPetId(userToken, petId);
+	    	 return new ResponseEntity(ApiCommResponse.OK(), HttpStatus.OK);
+		}catch(Exception e) {
+			e.printStackTrace();
+			 return new ResponseEntity(ApiCommResponse.Error(ResultCode.ERROR), ResultCode.ERROR.getStatus());
+		}
+    	 
+	}
+	
+	@ApiOperation(httpMethod = "PUT", value = "반려 동물 정보 수정", notes="사용자의 반려동물을 수정합니다.")
+	@RequestMapping(value = "/modify", method = RequestMethod.PUT)
+	public ResponseEntity<?> modifyPetInfo(@Valid @RequestBody ModifyPetReq vo){
+    	
+		try {
 	    	 return new ResponseEntity(ApiCommResponse.OK(), HttpStatus.OK);
 		}catch(Exception e) {
 			e.printStackTrace();
