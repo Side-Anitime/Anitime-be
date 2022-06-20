@@ -85,6 +85,7 @@ public class PetController {
 	public ResponseEntity<?> modifyPetInfo(@Valid @RequestBody ModifyPetReq vo){
     	
 		try {
+			petService.updatePetByPetId(vo);
 	    	 return new ResponseEntity(ApiCommResponse.OK(), HttpStatus.OK);
 		}catch(Exception e) {
 			e.printStackTrace();

@@ -7,7 +7,8 @@ import org.springframework.stereotype.Service;
 import com.side.anitime.domain.pet.Pet;
 import com.side.anitime.domain.pet.PetKind;
 import com.side.anitime.domain.user.User;
-import com.side.anitime.dto.PetDTO;
+import com.side.anitime.dto.PetDTO.KindSearch;
+import com.side.anitime.dto.PetDTO.ModifyPetReq;
 import com.side.anitime.dto.PetDTO.SavePetReq;
 import com.side.anitime.repository.pet.PetKindRepository;
 import com.side.anitime.repository.pet.PetRepository;
@@ -53,13 +54,32 @@ public class PetService {
 		return null;
 	}
 
-	public List<PetKind> getPetKindByPetNameAndType(PetDTO.KindSearch vo) {
+	public List<PetKind> getPetKindByPetNameAndType(KindSearch vo) {
 		return petKindRepository.findByTypeAndKindNameContains(vo.getType(), vo.getKindName());
 	}
 
 	public void deleteByUserTokenAndPetId(String userToken, Long petId) {
 		User userDto = userRepository.findByUserToken(userToken);
 		petRepository.deleteByUserTokenAndPetId(userDto.getUserId(), petId);
+	}
+	
+	public void updatePetByPetId(ModifyPetReq vo) {
+		
+		String genderStr = vo.getGender().toString();
+		String neuterYnStr = vo.getNeuterYn().toString();
+		String representYnStr = vo.getRepresentYn().toString();
+		
+		petRepository.updatePetByPetId(vo.getBirthday()
+													  , genderStr
+													  , vo.getName()
+													  , neuterYnStr
+													  , vo.getPersonality()
+													  , representYnStr
+													  , vo.getPetKindId()
+													  , vo.getShortIntroduce()
+													  , vo.getFirstMeetDate()
+													  , vo.getPetId());
+		
 	}
 
 }
