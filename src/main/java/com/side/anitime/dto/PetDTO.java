@@ -23,63 +23,63 @@ public class PetDTO {
 				, name = "userToken"
 				, dataType = "String"
 				, example = "testtoken")
-		private String userToken;
+		 String userToken;
 		
 		@ApiModelProperty(				 
 				  value = "동물 타입(개or고양이)"
 				, name = "type"
 				, dataType = "String"
 				, example = "DOG")
-		private AnimalType type;
+		 AnimalType type;
 		
 		@ApiModelProperty(				 
 				  value = "동물 종"
 				, name = "petKindId"
 				, dataType = "Integer"
 				, example = "1")
-		private Long petKindId; //애완 동물 종
+		 Long petKindId; //애완 동물 종
 		
 		@ApiModelProperty(				 
 				  value = "반려동물 이름"
 				, name = "name"
 				, dataType = "String"
 				, example = "감자")
-		private String name;
+		 String name;
 		
 		@ApiModelProperty(				 
 				  value = "성별"
 				, name = "gender"
 				, dataType = "String"
 				, example = "FEMALE")
-		private Gender gender; //성별
+		 Gender gender; //성별
 		
 		@ApiModelProperty(				 
 				  value = "중성화 여부"
 				, name = "neuterYn"
 				, dataType = "String"
 				, example = "Y")
-		private YesNo neuterYn; //중성화 여부
+		 YesNo neuterYn; //중성화 여부
 		
 		@ApiModelProperty(				 
 				  value = "간단한 동물 소개"
 				, name = "shortIntroduce"
 				, dataType = "String"
 				, example = "이 아이는 저의 반료동물입니다.")
-		private String shortIntroduce;
+		 String shortIntroduce;
 		
 		@ApiModelProperty(				 
 				  value = "생일"
 				, name = "birthday"
 				, dataType = "String"
 				, example = "2022-06-04")
-		private LocalDate birthday;
+		 LocalDate birthday;
 		
 		@ApiModelProperty(				 
 				  value = "처음 만난 날"
 				, name = "firstMeetDate"
 				, dataType = "String"
 				, example = "2019-06-04")
-		private LocalDate firstMeetDate;
+		 LocalDate firstMeetDate;
 		
 	}
 	
@@ -87,28 +87,55 @@ public class PetDTO {
 	@Getter
 	@Setter
 	public static class Info {
-		private Long petId;
+		
+		 Long petId;
 
-		private User user;
+		 User user;
 
-		private AnimalType type;
+		 AnimalType type;
 
-		private String kind;
+		 String kind;
 
-		private String name;
+		 String name;
 
-		private LocalDate birthday;
+		 LocalDate birthday;
 
-		private String personality;
+		 String personality;
 
-		private String image;
+		 String image;
 
-		private Gender gender;
+		 Gender gender;
 
-		private YesNo neuterYn;
+		 YesNo neuterYn;
 
-		private YesNo representYn;
+		 YesNo representYn;
 
+	}
+	
+	@Getter
+	@Setter
+	public static class ModifyPetReq {
+		
+		 Long petId;
+
+		 LocalDate birthday;
+		
+		 Gender gender;
+		
+		 String name;
+		
+		 YesNo neuterYn;
+		
+		 String personality;
+		
+		 YesNo representYn;
+		
+		 Long petKindId;
+		
+		 String shortIntroduce;
+		
+		 LocalDate firstMeetDate;
+		
 	}
 	
 	@Getter
@@ -116,9 +143,9 @@ public class PetDTO {
 	@AllArgsConstructor
 	public static class KindSearch {
 		
-		private String kindName;
+		 String kindName;
 
-		private AnimalType type;
+		 AnimalType type;
 
 	}
 	
