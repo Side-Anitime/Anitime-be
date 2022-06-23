@@ -1,5 +1,6 @@
 package com.side.anitime.service.user;
 
+import com.side.anitime.domain.setting.dto.UserDTO;
 import com.side.anitime.domain.user.Token;
 import com.side.anitime.domain.user.User;
 import com.side.anitime.repository.user.TokenRepository;
@@ -48,8 +49,8 @@ public class UserService {
 
     // 회원 단건 조회
     @Transactional(readOnly = true)
-    public User findOneUser(String email) {
-        User user = userRepository.findOneEmail(email);
+    public User findOneUser(UserDTO.reqUserToken userDto) {
+        User user = userRepository.findOneEmail(userDto.getEmail());
         return user;
     }
 }

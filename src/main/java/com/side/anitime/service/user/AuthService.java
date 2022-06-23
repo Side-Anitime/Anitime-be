@@ -1,10 +1,16 @@
 package com.side.anitime.service.user;
 
+import com.side.anitime.domain.setting.dto.UserDTO;
 import com.side.anitime.domain.user.Token;
+import com.side.anitime.dto.UserDTO;
 import com.side.anitime.repository.user.TokenRepository;
 import com.side.anitime.util.CipherUtil;
 import com.side.anitime.util.RandomSecure;
+import com.side.anitime.util.common.ApiCommResponse;
+import com.side.anitime.util.common.ResultCode;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,8 +54,13 @@ public class AuthService {
     }
 
     // TODO initToken으로 키 값 찾기
-    public Token findByKeypair(String initToken){
-        Token token = tokenRepository.findByKey(initToken);
+    public Token findByKeypair(UserDTO.reqUserToken userDto){
+        Token token = tokenRepository.findByKey(userDto.getInitToken());
+        String decodePw = cipherUtil.decode(userDto.getPasswordKey(), token.getPrivateKey());
+        if(!decodePw.equals(user.getPassword())){
+            // 패스워드 유효성 검증
+            return new ResponseEntity(ApiCommResponse.Error(ResultCode.ERROR_INVALID_PASSWORD), HttpStatus.BAD_REQUEST);
+        }
         return token;
     }
 }

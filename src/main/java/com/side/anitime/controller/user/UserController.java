@@ -29,29 +29,32 @@ public class UserController {
 
     @PostMapping(value = "/login")
     public ResponseEntity<UserDTO> login(@RequestBody UserDTO.reqUserToken userDto){
-        String initToken = userDto.getInitToken();
-        Token token = authService.findByKeypair(initToken);
-        String decodePw = cipherUtil.decode(userDto.getPasswordKey(), token.getPrivateKey());
+//        String initToken = userDto.getInitToken();
+//        Token token = authService.findByKeypair(initToken);
+//        String decodePw = cipherUtil.decode(userDto.getPasswordKey(), token.getPrivateKey());
+//        User user = userService.findOneUser(userDto.getEmail());
+
+        authService.findByKeypair(userDto);
         User user = userService.findOneUser(userDto.getEmail());
 
-        if(!decodePw.equals(user.getPassword())){
-            return new ResponseEntity(ApiCommResponse.Error(ResultCode.ERROR_INVALID_PASSWORD), HttpStatus.BAD_REQUEST);
-        }
-        // TODO userToken 생성해주는 부분 추가 필요
-        String userToken = randomSecure.userGenerate();
+        // 등록한 이메일이 있는지 체크
+
+
         return new ResponseEntity(ApiCommResponse.OK(UserDTO.Detail.builder()
                 .userId(user.getUserId())
                 .email(user.getEmail())
                 .nickname(user.getNickname())
                 .userType(user.getUserType())
                 .picture(user.getPicture())
-                .userToken(userToken)
+//                .userToken(userToken)
                 .build()
         ), HttpStatus.OK);
     }
 
     @PostMapping("/join")
     public ResponseEntity<?> join(@RequestBody User user){
+        // TODO userToken 생성해주는 부분 추가 필요
+        String userToken = randomSecure.userGenerate();
         return ResponseEntity.ok(userService.join(user));
     }
 }
