@@ -21,8 +21,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     private final AuthService authService;
-    private final CipherUtil cipherUtil;
 
+    /**
+     * initToken, publicKey 생성 API
+     * @return initToken, publicKey
+     * @throws Exception
+     */
     @GetMapping(value = "/init")
     public ResponseEntity<TokenDTO> getTokenSave() throws Exception {
         Token token = null;
@@ -31,7 +35,6 @@ public class AuthController {
         }catch(Exception e){
             e.printStackTrace();
         }
-//        return ResponseEntity.ok(null);
         return new ResponseEntity(ApiCommResponse.OK(TokenDTO.tokenDetail.builder()
                 .initToken(token.getInitToken())
                 .publicKey(token.getPublicKey())
@@ -39,22 +42,24 @@ public class AuthController {
         ), HttpStatus.CREATED);
     }
 
-
+    /**
+     * userToken 재발급 API
+     * @param tokenDto
+     * @return userToken
+     */
     @PostMapping(value = "/verify")
     //public ResponseEntity<?> getVerifyToken(TokenDTO.reqUserToken tokenDto) throws Exception {
     public ResponseEntity<?> getVerifyToken(TokenDTO.reqVerify tokenDto) throws Exception {
-        String initToken = tokenDto.getInitToken();
-        // TODO initToken 으로 DB에 등록된 키 값 가져오기
-        Token token = authService.findByKeypair(initToken);
-        String encStr = cipherUtil.encode(tokenDto.getPassword(), token.getPublicKey());
-        String decodeStr = cipherUtil.decode(encStr, token.getPrivateKey());
+        authService.setRefreshToken(tokenDto);
 
-        return new ResponseEntity(ApiCommResponse.OK(TokenDTO.verifyInfo.builder()
-                .initToken(token.getInitToken())
-                .encodeKey(encStr)
-                .decodeKey(decodeStr)
-                .email(tokenDto.getEmail())
-                .build()
-        ), HttpStatus.OK);
+        return null;
+
+//        return new ResponseEntity(ApiCommResponse.OK(TokenDTO.verifyInfo.builder()
+//                .initToken(token.getInitToken())
+//                .encodeKey(encStr)
+//                .decodeKey(decodeStr)
+//                .email(tokenDto.getEmail())
+//                .build()
+//        ), HttpStatus.OK);
     }
 }

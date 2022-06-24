@@ -14,6 +14,7 @@ public class RandomSecure {
 
     private static SecureRandom random = new SecureRandom();
 
+    // initToken 생성
     public String initGenerate(){
         if (initLength < 1) throw new IllegalArgumentException("length must be a positive number.");
         StringBuilder sb = new StringBuilder(initLength);
@@ -23,6 +24,7 @@ public class RandomSecure {
         return sb.toString();
     }
 
+    // userToken 생성
     public String userGenerate(){
         String tmpString = initGenerate().toString();
         return "ani" + tmpString + "time";

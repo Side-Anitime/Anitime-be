@@ -2,6 +2,7 @@ package com.side.anitime.service.user;
 
 import com.side.anitime.domain.setting.dto.UserDTO;
 import com.side.anitime.domain.user.Token;
+import com.side.anitime.dto.TokenDTO;
 import com.side.anitime.dto.UserDTO;
 import com.side.anitime.repository.user.TokenRepository;
 import com.side.anitime.util.CipherUtil;
@@ -25,7 +26,6 @@ public class AuthService {
     private final TokenRepository tokenRepository;
     private final RandomSecure randomSecure;
     private final CipherUtil cipherUtil;
-//    private final Token token;
 
     public Token getTokenSave(){
         /**
@@ -52,15 +52,7 @@ public class AuthService {
 
         return token;
     }
-
-    // TODO initToken으로 키 값 찾기
-    public Token findByKeypair(UserDTO.reqUserToken userDto){
-        Token token = tokenRepository.findByKey(userDto.getInitToken());
-        String decodePw = cipherUtil.decode(userDto.getPasswordKey(), token.getPrivateKey());
-        if(!decodePw.equals(user.getPassword())){
-            // 패스워드 유효성 검증
-            return new ResponseEntity(ApiCommResponse.Error(ResultCode.ERROR_INVALID_PASSWORD), HttpStatus.BAD_REQUEST);
-        }
-        return token;
+    // initToken, email, password
+    public void setRefreshToken(TokenDTO.reqVerify tokenDto) {
     }
 }
