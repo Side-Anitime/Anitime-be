@@ -27,7 +27,7 @@ public class RandomSecure {
     // userToken 생성
     public String userGenerate(){
         String tmpString = initGenerate().toString();
-        return "ani" + tmpString + "time";
+        return "dosl" + tmpString + "xkdla";
     }
 }
 

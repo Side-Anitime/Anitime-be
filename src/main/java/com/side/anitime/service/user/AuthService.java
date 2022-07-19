@@ -1,10 +1,10 @@
 package com.side.anitime.service.user;
 
-import com.side.anitime.domain.setting.dto.UserDTO;
 import com.side.anitime.domain.user.Token;
 import com.side.anitime.dto.TokenDTO;
 import com.side.anitime.dto.UserDTO;
 import com.side.anitime.repository.user.TokenRepository;
+import com.side.anitime.repository.user.UserRepository;
 import com.side.anitime.util.CipherUtil;
 import com.side.anitime.util.RandomSecure;
 import com.side.anitime.util.common.ApiCommResponse;
@@ -26,6 +26,7 @@ public class AuthService {
     private final TokenRepository tokenRepository;
     private final RandomSecure randomSecure;
     private final CipherUtil cipherUtil;
+    private final UserRepository userRepository;
 
     public Token getTokenSave(){
         /**
@@ -38,11 +39,11 @@ public class AuthService {
         String publicKey = rsaKeyPair.get("publicKey"); // 공개키
         String privateKey = rsaKeyPair.get("privateKey"); // 개인키
         // initToken 생성
-        String initToken = randomSecure.initGenerate();
-
         /**
-         * TODO initToken 값이 디비에 있는 지 확인해서 없으면 재생성 로직 추가
+         * 추후 변경소지 있어보임
+         * initToken이 있으면 생성안하고, 없으면 생성하는 방향
          */
+        String initToken = randomSecure.initGenerate();
 
         token.setInitToken(initToken);
         token.setPublicKey(publicKey);
@@ -52,7 +53,27 @@ public class AuthService {
 
         return token;
     }
-    // initToken, email, password
-    public void setRefreshToken(TokenDTO.reqVerify tokenDto) {
+
+    /**
+     * userToken 갱신
+     * @param tokenDto (initToken, email, password)
+     */
+    public String setRefreshToken(TokenDTO.reqVerify tokenDto) {
+        // userToken 새로 생성해주는 부분
+        // DB에 생성한 userToken 업데이트 해주는 부분 필요
+        String userToken = randomSecure.userGenerate();
+        userRepository.refreshUserToken(tokenDto.getInitToken(), userToken);
+
+        return userToken;
+    }
+
+    /**
+     *
+     * @param initToken
+     * @return initToken으로 개인키 찾기
+     */
+    public Token findByKeypair(String initToken) {
+        Token token = tokenRepository.findByKey(initToken);
+        return token;
     }
 }

@@ -12,6 +12,8 @@ public class TokenDTO {
     /**
      * Token Request 부분
      */
+
+
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
@@ -24,6 +26,15 @@ public class TokenDTO {
     /**
      * Token Response 부분
      */
+
+    @Data
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class refreshUserToken {
+        private String userToken;
+    }
+
     @Data
     @Builder
     @NoArgsConstructor

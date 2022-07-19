@@ -44,22 +44,16 @@ public class AuthController {
 
     /**
      * userToken 재발급 API
-     * @param tokenDto
+     * param : initToken, email, password
      * @return userToken
      */
     @PostMapping(value = "/verify")
-    //public ResponseEntity<?> getVerifyToken(TokenDTO.reqUserToken tokenDto) throws Exception {
     public ResponseEntity<?> getVerifyToken(TokenDTO.reqVerify tokenDto) throws Exception {
-        authService.setRefreshToken(tokenDto);
+        String userToken = authService.setRefreshToken(tokenDto);
 
-        return null;
-
-//        return new ResponseEntity(ApiCommResponse.OK(TokenDTO.verifyInfo.builder()
-//                .initToken(token.getInitToken())
-//                .encodeKey(encStr)
-//                .decodeKey(decodeStr)
-//                .email(tokenDto.getEmail())
-//                .build()
-//        ), HttpStatus.OK);
+        return new ResponseEntity(ApiCommResponse.OK(TokenDTO.refreshUserToken.builder()
+                .userToken(userToken)
+                .build()
+        ), HttpStatus.OK);
     }
 }

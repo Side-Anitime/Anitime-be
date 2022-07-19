@@ -27,4 +27,7 @@ public class Token extends BaseEntity {
     @Lob
     @Column(name = "PUBLIC_KEY")
     private String publicKey;
+
+    @OneToOne(mappedBy = "token")
+    private User user;
 }
