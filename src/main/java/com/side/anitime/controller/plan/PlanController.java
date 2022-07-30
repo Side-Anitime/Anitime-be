@@ -41,11 +41,11 @@ public class PlanController {
 	public ResponseEntity<?> savePlan(@Valid @RequestBody PlanDTO.SavePlanReq vo) {
 		try {
 			planService.savePlan(vo);
+			return new ResponseEntity(ApiCommResponse.OK(), HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
+			return new ResponseEntity(ApiCommResponse.Error(ResultCode.ERROR), ResultCode.ERROR.getStatus());
 		}
-		
-		return new ResponseEntity(ApiCommResponse.OK(), HttpStatus.OK);
 	}
 	
 	@ApiOperation(httpMethod = "PUT", value = "일정 수정", notes="사용자가 등록한 일정을 수정합니다.")
