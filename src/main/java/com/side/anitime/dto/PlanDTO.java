@@ -1,8 +1,8 @@
 package com.side.anitime.dto;
 
-import javax.validation.constraints.Positive;
+import java.util.List;
 
-import com.google.gson.JsonArray;
+import javax.validation.constraints.Positive;
 
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
@@ -14,23 +14,52 @@ public class PlanDTO {
 
 	@Getter
 	@Setter
-	public static class SaveReq {
+	public static class SavePlanReq {
 		
 		@ApiParam(name="userToken", value = "testtoken")
-		private String userToken;
-		private String title;
-		private String contents;
-		private String startDate;
-		private String endDate;
+		 String userToken;
+		 String title;
+		 String contents;
+		 String startDate;
+		 String endDate;
 
 		@Positive
-		private Long colorId;
+		 Long colorId;
 		
 		@Positive
-		private Long planCategoryId;
+		 Long planCategoryId;
 		
 		@Positive
-		private Long alarmId;
+		 Long alarmId;
+		
+		 List<Long> petIds;
+		
+	}
+	
+	@Getter
+	@Setter
+	public static class ModifyPlanReq {
+		
+		@ApiParam(name="userToken", value = "testtoken")
+		 String userToken;
+		@Positive
+		Long planId;
+		
+		 String title;
+		 String contents;
+		 String startDate;
+		 String endDate;
+
+		@Positive
+		 Long colorId;
+		
+		@Positive
+		 Long planCategoryId;
+		
+		@Positive
+		 Long alarmId;
+		
+		 List<Long> petIds;
 		
 	}
 	
@@ -41,11 +70,11 @@ public class PlanDTO {
 	@ToString
 	public static class CalendarViewReq{
 		
-		private String year;
+		 String year;
 		
-		private String month;
+		 String month;
 		
-		private String userToken;
+		 String userToken;
 		
 	}
 	
@@ -54,10 +83,17 @@ public class PlanDTO {
 	@ToString
 	public static class CalendarViewRes{
 		
-		private String[] name;//일정 카테고리 명
+		 String[] name;//일정 카테고리 명
 		
-		private JsonArray dots; //일정 색깔 정보 저장
+		 List<PlanDTO.Color> dots; //일정 색깔 정보 저장
 		
+	}
+	
+	@Getter
+	@Setter
+	@ToString
+	public static class Color{
+		 String color;
 	}
 
 }
