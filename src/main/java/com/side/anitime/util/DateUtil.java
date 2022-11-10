@@ -19,18 +19,18 @@ public class DateUtil {
 	public static LocalDateTime getFormattedStartDate(String year, String month, int day) {
 		String dayFormat = String.format("%02d", day);
 		String date = year + "-" + month + "-" + dayFormat;
-		String dateTimeStr = date + " 00:00:00.000";
+		String dateTimeStr = date + " 00:00:00";
 
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		return LocalDateTime.parse(dateTimeStr, formatter);
 	}
 
 	public static LocalDateTime getFormattedEndDate(String year, String month, int day) {
 		String dayFormat = String.format("%02d", day);
 		String date = year + "-" + month + "-" + dayFormat;
-		String dateTimeStr = date + " 23:59:59.999";
+		String dateTimeStr = date + " 23:59:59";
 
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		return LocalDateTime.parse(dateTimeStr, formatter);
 	}
 	

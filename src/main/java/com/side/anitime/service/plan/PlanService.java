@@ -100,7 +100,6 @@ public class PlanService {
 	}
 
 	public List<HashMap<String,Object>> getCalendarPlanByYearMonth(PlanDTO.CalendarViewReq vo) throws Exception {
-
 		List<HashMap<String,Object>> findPlanMapList = new ArrayList<HashMap<String,Object>>();
 		
 		//요청 월의 마지막 날짜 정보 초기화
@@ -115,14 +114,14 @@ public class PlanService {
 
 			//해당 기간 일정 조회
 			List<Plan> findPlanList = planRepository.findPlanByDate(startDate, endDate, vo.getUserToken());
-			
+
 			List<String> categoryNameList = new ArrayList<String>();
 			List<PlanDTO.Color>colorHexList = new ArrayList<PlanDTO.Color>();
 			for (Plan findPlanDto : findPlanList) {
 				
 				PlanDTO.Color colorDto = new PlanDTO.Color(); 
 				colorDto.setColor(findPlanDto.getColor().getHex());
-				
+
 				categoryNameList.add(findPlanDto.getPlanCategory().getPlanCategoryName());
 				colorHexList.add(colorDto);
 			}
@@ -135,6 +134,9 @@ public class PlanService {
 			findPlanByDateMap.put(DateUtil.getFormattedDate(vo.getYear(), vo.getMonth(), dayIndex), calendarViewResDto);
 			findPlanMapList.add(findPlanByDateMap);
 		}
+//		for(int i=0; i<findPlanMapList.size(); i++){
+//			System.out.println("::::findPlanMapList"+findPlanMapList.get(i));
+//		}
 
 		return findPlanMapList;
 		

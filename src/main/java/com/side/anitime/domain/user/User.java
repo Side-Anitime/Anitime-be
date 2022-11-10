@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.side.anitime.codeconst.UserType;
@@ -58,14 +59,18 @@ public class User extends BaseEntity {
     @Column(name = "NICKNAME", length = 20)
     private String nickname;
 
-    @Column(name = "PASSWORD", length = 20)
+    @Column(name = "PASSWORD", length = 150)
     private String password;
 
+//    @Column(name = "USER_TYPE")
     @Column(name = "USER_TYPE", columnDefinition = "ENUM('NORMAL', 'NAVER', 'KAKAO', 'NON') DEFAULT 'NORMAL'")
+    @ColumnDefault("NORMAL")
     @Enumerated(EnumType.STRING)
     private UserType userType;
 
+    //@Column(name = "ACCOUNT_STATUS")
     @Column(name = "ACCOUNT_STATUS", columnDefinition = "ENUM('Y', 'N') DEFAULT 'Y'")
+    @ColumnDefault("Y")
     @Enumerated(EnumType.STRING)
     private YesNo accountStatus;
 

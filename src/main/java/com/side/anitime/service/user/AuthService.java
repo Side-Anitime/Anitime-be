@@ -58,14 +58,14 @@ public class AuthService {
      * userToken 갱신
      * @param tokenDto (initToken, email, password)
      */
-    public String setRefreshToken(TokenDTO.reqVerify tokenDto) {
-        // userToken 새로 생성해주는 부분
-        // DB에 생성한 userToken 업데이트 해주는 부분 필요
-        String userToken = randomSecure.userGenerate();
-        userRepository.refreshUserToken(tokenDto.getInitToken(), userToken);
-
-        return userToken;
-    }
+//    public String setRefreshToken(TokenDTO.reqVerify tokenDto) {
+//        // userToken 새로 생성해주는 부분
+//        // DB에 생성한 userToken 업데이트 해주는 부분 필요
+//        String userToken = randomSecure.userGenerate();
+//        userRepository.refreshUserToken(tokenDto.getInitToken(), userToken);
+//
+//        return userToken;
+//    }
 
     /**
      *

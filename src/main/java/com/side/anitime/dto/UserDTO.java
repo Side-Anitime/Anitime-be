@@ -1,7 +1,9 @@
 package com.side.anitime.dto;
 
 import com.side.anitime.codeconst.UserType;
+import com.side.anitime.codeconst.YesNo;
 import lombok.*;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 
 import javax.persistence.Lob;
 
@@ -10,15 +12,27 @@ public class UserDTO {
     /**
      * request DTO 부분
      */
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class reqJoinUser {
+        private String email;
+        private String nickname;
+        private UserType userType;
+        private YesNo accountStatus;
+        @Lob
+        private String password;
+        @Lob
+        private String userToken;
+    }
 
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
     public static class reqUserToken {
-        private String initToken;
         private String email;
-        @Lob
-        private String passwordKey;
+        private String password;
+//        private String userToken;
     }
 
 
@@ -30,7 +44,6 @@ public class UserDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Detail {
-        private Long userId;
         private String email;
         private String nickname;
         private UserType userType;

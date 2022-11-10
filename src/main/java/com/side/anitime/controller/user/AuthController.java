@@ -47,13 +47,13 @@ public class AuthController {
      * param : initToken, email, password
      * @return userToken
      */
-    @PostMapping(value = "/verify")
-    public ResponseEntity<?> getVerifyToken(TokenDTO.reqVerify tokenDto) throws Exception {
-        String userToken = authService.setRefreshToken(tokenDto);
-
-        return new ResponseEntity(ApiCommResponse.OK(TokenDTO.refreshUserToken.builder()
-                .userToken(userToken)
-                .build()
-        ), HttpStatus.OK);
-    }
+//    @PostMapping(value = "/verify")
+//    public ResponseEntity<?> getVerifyToken(TokenDTO.reqVerify tokenDto) throws Exception {
+//        String userToken = authService.setRefreshToken(tokenDto);
+//
+//        return new ResponseEntity(ApiCommResponse.OK(TokenDTO.refreshUserToken.builder()
+//                .userToken(userToken)
+//                .build()
+//        ), HttpStatus.OK);
+//    }
 }
